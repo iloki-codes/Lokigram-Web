@@ -1,6 +1,7 @@
 import { config } from 'dotenv';
-import mongoose from mongoose;
-import App from './app';
+import mongoose from 'mongoose';
+import app from './src/app.js';
+import config from './src/config/index.js';
 
 ( async() => {
     try{
@@ -20,9 +21,8 @@ import App from './app';
     }
 
     catch(err){
-        console.log(err);
+        console.log('Error: ', err);
         
     }
-})
-
+}) ()
 // PHASE ONE COMPLETED
