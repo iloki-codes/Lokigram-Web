@@ -30,3 +30,5 @@ function PostBody() {
         </>
     );
 }
+
+export default PostBody;
