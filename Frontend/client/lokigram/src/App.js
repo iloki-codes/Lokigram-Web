@@ -10,7 +10,7 @@ import PrivateRouter from './customRouter/PrivateRouter.js';
 
 import Header from './components/header/Header.js';
 import Notify from './components/alert/Alert.js';
-import Register from './pages/Account.new.js';
+import Register from './pages/Register.js';
 import StatusModal from './components/StatusModal.js';
 
 import { refreshToken } from './redux/actions/authAction';
@@ -72,6 +72,8 @@ function App() {
       <div className={`App ${(status || modal) && 'mode'}`}>    
         
         <div className="main ml-40 mr-40">
+
+          <Login />
   
           {auth.token && <Header />}
           {status && <StatusModal />}

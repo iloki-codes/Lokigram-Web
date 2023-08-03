@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { login } from '../redux/actions/authAction'
-import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../redux/actions/authAction';
+import { useDispatch, useSelector } from 'react-redux';
+
+import smlogo from '../assets/smlogo.png';
 
 
 const Login = () => {
@@ -31,6 +33,11 @@ const Login = () => {
 
     return (
         <div className="auth_page">
+
+            <p className='absolute top-12 left-96 ml-56 text-6xl text-emerald-600 font-extrabold font-mono tracking-widest'>LOKIGRAM</p>
+
+            <img src={smlogo} alt='logo' className='w-60 h-72 fixed top-48 right-60'/>
+
             <form onSubmit={handleSubmit}>
                 <h3 className="text-uppercase text-center mb-4">Lokigram</h3>
 
@@ -39,7 +46,7 @@ const Login = () => {
                     <input type="email" className="form-control" id="exampleInputEmail1" name="email"
                     aria-describedby="emailHelp" onChange={handleChangeInput} value={email} />
                     
-                    <small id="emailHelp" className="form-text text-muted">
+                    <small id="emailHelp" className="form-text text-muted text-light-emphasis">
                         We'll never share your email with anyone else.
                     </small>
                 </div>
@@ -73,4 +80,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;
