@@ -32,4 +32,4 @@ const PageRender = () => {
     return generatePage(pageName)
 }
 
-export default PageRender
+export default PageRender;

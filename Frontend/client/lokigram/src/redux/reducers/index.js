@@ -1,18 +1,18 @@
-import { combineReducers } from 'redux'
-import auth from './authReducer'
-import alert from './alertReducer'
-import profile from './profileReducer'
-import socket from './socketReducer'
-import notify from './notifyReducer'
-import message from './messageReducer'
-
+import { combineReducers } from 'redux';
+import auth from './authReducer.js';
+import alert from './alertReducer.js';
+import profile from './profileReducer.js';
+import socket from './socketReducer.js';
+import notify from './notifyReducer.js';
+import message from './messageReducer.js';
+import status from './storyReducer.js';
 
 export default combineReducers({
     auth,
     alert,
     profile,
-    story,
+    status,
     socket,
     notify,
     message,
-})
+});

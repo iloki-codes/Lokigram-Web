@@ -1,29 +1,27 @@
 import React from 'react';
 import { useEffect } from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Home from './pages/Home.js';
 import Login from './pages/Login.js';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
 import PageRender from './customRouter/PageRender.js';
 import PrivateRouter from './customRouter/PrivateRouter.js';
 
-// import { Router } from 'react-router-dom';
 import Header from './components/header/Header.js';
-// import Storytab from './components/home/Storytab.js';
 import Notify from './components/alert/Alert.js';
 import Register from './pages/Account.new.js';
+import StatusModal from './components/StatusModal.js';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { refreshToken } from './redux/actions/authAction';
 import { getPosts } from './redux/actions/postAction';
-// import { getSuggestions } from './redux/actions/suggestionsAction';
-// import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { GLOBALTYPES } from './redux/actions/globalTypes'
+import Peer from 'peerjs';
 import SocketClient from './SocketClient.js';
-import { Server } from 'socket.io';
-import smlogo from './assets/smlogo.png';
 
 function App() {
-  const { auth } = useSelector(state => state)
+  const { auth, status, modal } = useSelector(state => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -54,46 +52,51 @@ function App() {
     }
   },[])
 
-  // useEffect(() => {
-  //   const newPeer = new Peer(undefined, {
-  //     path: '/', secure: true
-  //   })
+  useEffect(() => {
+    const newPeer = new Peer(undefined, {
+      path: '/', secure: true
+    })
     
-  //   dispatch({ type: GLOBALTYPES.PEER, payload: newPeer })
-  // },[dispatch])
+    dispatch({ type: GLOBALTYPES.PEER, payload: newPeer })
+  },[dispatch])
   
   return (
-    
-    <div className="App">
-      <img src={smlogo} alt='logo'/>
-       <Router>
-      <Notify />
+    <>
+
+      <Router>
+      
+      <Notify />   
 
       <input type="checkbox" id="theme" />
-      {/* <div className={`App ${(status || modal) && 'mode'}`}> */}
-        <div className="main">
+
+      <div className={`App ${(status || modal) && 'mode'}`}>    
+        
+        <div className="main ml-40 mr-40">
+  
           {auth.token && <Header />}
-          {/* {status && <StatusModal />} */}
+          {status && <StatusModal />}
           {auth.token && <SocketClient />}
-          {/* {call && <CallModal />} */}
-          
+
+
+          <Routes>
           <Route exact path="/" component={auth.token ? Home : Login} />
           <Route exact path="/register" component={Register} />
+          </Routes>
 
           <PrivateRouter exact path="/:page" component={PageRender} />
           <PrivateRouter exact path="/:page/:id" component={PageRender} />
           
-        {/* </div> */}
+        </div>
+      
       </div>
+    
     </Router>
-
-      {/* <Signup /> */}
       
       <footer>
-          <p className=''>Lokigram Version 0.1.0</p>
+          <p className='fixed bottom-0 left-64 pl-96 pr-96 bg-emerald-500 text-lg'>Lokigram Version 0.1.0</p>
       </footer>
     
-    </div>
+    </>
   
   );
 

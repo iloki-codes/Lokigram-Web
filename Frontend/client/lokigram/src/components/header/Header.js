@@ -7,7 +7,7 @@ import Burger from './Burger.menu.js';
 const Header = () => {
 
     return (
-        <div className="header bg-light">
+        <div className="header bg-emerald-800 fixed top-0">
                         <Burger />
             <nav className="navbar navbar-expand-lg navbar-light 
             bg-light justify-content-between align-middle">

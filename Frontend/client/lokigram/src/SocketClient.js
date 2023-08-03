@@ -4,6 +4,7 @@ import { POST_TYPES } from './redux/actions/postAction.js';
 import { GLOBALTYPES } from './redux/actions/globalTypes'
 import { NOTIFY_TYPES } from './redux/actions/notifyAction.js';
 import { MESS_TYPES } from './redux/actions/messageAction.js';
+import PrivateRouter from './customRouter/PrivateRouter.js';
 
 const spawnNotification = (body, icon, url, title) => {
     let options = {
@@ -117,41 +118,41 @@ export const SocketClient = () => {
         return () => socket.off('addMessageToClient')
     },[socket, dispatch])
 
-    // Check User Online / Offline
-    useEffect(() => {
-        socket.emit('checkUserOnline', auth.user)
-    },[socket, auth.user])
+    // // Check User Online / Offline
+    // useEffect(() => {
+    //     socket.emit('checkUserOnline', auth.user)
+    // },[socket, auth.user])
 
-    useEffect(() => {
-        socket.on('checkUserOnlineToMe', data =>{
-            data.forEach(item => {
-                if(!online.includes(item.id)){
-                    dispatch({type: GLOBALTYPES.ONLINE, payload: item.id})
-                }
-            })
-        })
+    // useEffect(() => {
+    //     socket.on('checkUserOnlineToMe', data =>{
+    //         data.forEach(item => {
+    //             if(!online.includes(item.id)){
+    //                 dispatch({type: GLOBALTYPES.ONLINE, payload: item.id})
+    //             }
+    //         })
+    //     })
 
-        return () => socket.off('checkUserOnlineToMe')
-    },[socket, dispatch, online])
+    //     return () => socket.off('checkUserOnlineToMe')
+    // },[socket, dispatch, online])
 
-    useEffect(() => {
-        socket.on('checkUserOnlineToClient', id =>{
-            if(!online.includes(id)){
-                dispatch({type: GLOBALTYPES.ONLINE, payload: id})
-            }
-        })
+    // useEffect(() => {
+    //     socket.on('checkUserOnlineToClient', id =>{
+    //         if(!online.includes(id)){
+    //             dispatch({type: GLOBALTYPES.ONLINE, payload: id})
+    //         }
+    //     })
 
-        return () => socket.off('checkUserOnlineToClient')
-    },[socket, dispatch, online])
+    //     return () => socket.off('checkUserOnlineToClient')
+    // },[socket, dispatch, online])
 
-    // Check User Offline
-    useEffect(() => {
-        socket.on('CheckUserOffline', id =>{
-            dispatch({type: GLOBALTYPES.OFFLINE, payload: id})
-        })
+    // // Check User Offline
+    // useEffect(() => {
+    //     socket.on('CheckUserOffline', id =>{
+    //         dispatch({type: GLOBALTYPES.OFFLINE, payload: id})
+    //     })
 
-        return () => socket.off('CheckUserOffline')
-    },[socket, dispatch])
+    //     return () => socket.off('CheckUserOffline')
+    // },[socket, dispatch])
 
 
     // // Call User
@@ -175,7 +176,7 @@ export const SocketClient = () => {
 
     return (
         <>
-            
+            <PrivateRouter />  
         </>
     )
 }

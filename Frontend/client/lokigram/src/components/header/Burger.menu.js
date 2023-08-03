@@ -33,23 +33,24 @@ function Burger() {
     return (
         <>
         {
-            <div className="sidetab">
+            <div className="sidetab fixed z-50 top-12 right-12 bg-lime-700 -translate-y-full ">
 
-                <ul className="links">
+                <ul className="links absolute flex fixed top-0 lrft-0 bottom-0 rigt-0 pt-4 transition duration-0.2 ease-in-out">
                     <li className="item"><a href=""></a>Github<i class="fa fa-github" aria-hidden="true"></i></li>
                     <li className="item"><a href=""></a>LinkedIn<i class="fa fa-linkedin-square" aria-hidden="true"></i></li>
                     <li className="item"><a href=""></a>Medium<i class="fa fa-sticky-note" aria-hidden="true"></i></li>
-                </ul>
 
-                <section className="">
+                <li className="item">
                     <p className="">Contact Me<i class="fa fa-envelope-o" aria-hidden="true"></i></p>
-                </section>
+                </li>
 
-                <span className="">@loki-codes</span>
+                <li className="item">@loki-codes</li>
+
+                </ul>
 
                 <button class="hamburger">
                 <i className="menuIcon fa fa-bars" aria-hidden="true">menu</i>
-                <i className="closeIcon fa fa-window-close-o" aria-hidden="true">close</i>
+                <i className="closeIcon fa fa-window-close-o hidden" aria-hidden="true">close</i>
                 </button>
 
             </div>
