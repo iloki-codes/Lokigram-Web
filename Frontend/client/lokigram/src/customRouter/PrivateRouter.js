@@ -4,7 +4,7 @@ const PrivateRouter = (props) => {
 
       const firstLogin = localStorage.getItem('firstLogin');
       return firstLogin 
-      ? <Routes> <Route {...props} /> </Routes> : <Navigate to="/" />
+      ?  <Route {...props} /> : <Navigate to="/" />
 };
 
 export default PrivateRouter;

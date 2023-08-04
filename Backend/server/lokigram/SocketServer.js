@@ -1,8 +1,8 @@
 let users = []
 
-const EditData = (data, id, call) => {
+const EditData = (data, id) => {
     const newData = data.map(item => 
-        item.id === id ? {...item, call} : item
+        item.id === id ? {...item} : item
     )
     return newData;
 }
@@ -26,13 +26,6 @@ const SocketServer = (socket) => {
                 })
             }
 
-            if(data.call){
-                const callUser = users.find(user => user.id === data.call)
-                if(callUser){
-                    users = EditData(users, callUser.id, null)
-                    socket.to(`${callUser.socketId}`).emit('callerDisconnect')
-                }
-            }
         }
 
         users = users.filter(user => user.socketId !== socket.id)

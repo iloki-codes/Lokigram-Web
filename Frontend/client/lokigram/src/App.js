@@ -67,8 +67,6 @@ function App() {
       
       <Notify />   
 
-      <input type="checkbox" id="theme" />
-
       <div className={`App ${(status || modal) && 'mode'}`}>    
         
         <div className="main ml-40 mr-40">
@@ -81,8 +79,8 @@ function App() {
 
 
           <Routes>
-          <Route exact path="/" component={auth.token ? Home : Login} />
-          <Route exact path="/register" component={Register} />
+            <Route exact path="/" component={auth.token ? Home : Login} />
+            <Route exact path="/register" component={Register} />
           </Routes>
 
           <PrivateRouter exact path="/:page" component={PageRender} />
