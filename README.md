@@ -1,5 +1,5 @@
 ﻿# Social-Media-App
 
-##https://lokigram.netlify.app/
+https://lokigram.netlify.app/
 
 ## Lokesh - @loki-codes
