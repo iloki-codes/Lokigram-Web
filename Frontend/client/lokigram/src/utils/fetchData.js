@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+
 export const BASE_URL = 'backedn url';
 
 export const getDataAPI = async (url, token) => {
