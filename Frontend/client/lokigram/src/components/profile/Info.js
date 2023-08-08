@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Avatar from '../Avatar'
-// import EditProfile from './EditProfile'
-import FollowBtn from '../FollowBtn'
-import Followers from './Followers'
-import Following from './Following'
+import Avatar from '../Avatar';
+import EditProfile from './EditProfile.js';
+import FollowBtn from '../FollowBtn.js';
+import Followers from './Followers.js';
+import Following from './Following.js';
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 
 const Info = ({id, auth, profile, dispatch}) => {
@@ -73,9 +73,9 @@ const Info = ({id, auth, profile, dispatch}) => {
                             <p>{user.story}</p>
                         </div>
 
-                        {/* {
+                        {
                             onEdit && <EditProfile setOnEdit={setOnEdit} />
-                        } */}
+                        }
 
                         {
                             showFollowers &&

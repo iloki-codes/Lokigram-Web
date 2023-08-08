@@ -5,7 +5,6 @@ import JWT from 'jsonwebtoken';
 import config from '../config';
 import crypto from 'crypto';    // inbuilt in nodejs
 
-
 const userSchema = new mongoose.Schema(
     {
         name: {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import User from '../User.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom'
-import MsgDisplay from './MsgDisplay'
+import MsgDisplay from './MsgDisplay.js';
 import Icons from '../Icons';
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 import { imageShow, videoShow } from '../../utils/mediaShow.js'

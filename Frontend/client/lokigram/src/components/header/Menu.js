@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../redux/actions/authAction.js';
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import Avatar from '../Avatar.js';
+import NotifyModal from '../NotifyModal';
 
 const Menu = () => {
     const navLinks = [
@@ -48,6 +49,7 @@ const Menu = () => {
 
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown"
                     style={{transform: 'translateX(75px)'}}>
+                        <NotifyModal />
                     </div>
                         
                 </li>

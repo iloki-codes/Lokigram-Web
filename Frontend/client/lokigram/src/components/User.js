@@ -1,39 +1,5 @@
-
-// import smlogo from './assets/smlogo.png';
-
-
-// function User() {
-
-
-//     return (
-//         <>
-//             {
-//                 <div className="user">
-
-//                     <img className="" src={smlogo} alt="logo" /> 
-                    
-//                     <div className="">
-//                         <div>
-//                             <img src={coverpic} alt="cover" />
-//                             <img src={profilepic} alt='profile' />
-//                         </div>
-
-//                         <div className=''>
-//                             {/* userdetails */}
-//                             {/* userposts */}
-//                         </div>
-//                     </div>
-//                 </div>
-//             }
-//         </>
-//     );
-// }
-
-// export default User;
-
-
-import React from 'react'
-import Avatar from './Avatar'
+import React from 'react';
+import Avatar from './Avatar.js';
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 

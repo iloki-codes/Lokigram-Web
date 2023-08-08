@@ -1,25 +1,7 @@
 
 
-
-
-// const Storytab = () => {
-
-//     return (
-//         <>
-//         {
-//             <div className="">
-//                 {/* story.map */}
-//                 <div className="" key={5}></div>
-//             </div>
-//         }
-//         </>
-//     )
-// } 
-
-// export default Storytab;   
-
 import React from 'react'
-import Avatar from '../Avatar'
+import Avatar from '../Avatar';
 import { useSelector, useDispatch } from 'react-redux'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 

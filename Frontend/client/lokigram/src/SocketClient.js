@@ -19,7 +19,7 @@ const spawnNotification = (body, icon, url, title) => {
 }
 
 export const SocketClient = () => {
-    const { auth, socket, notify, online, call } = useSelector(state => state)
+    const { auth, socket, notify } = useSelector(state => state)
     const dispatch = useDispatch()
 
     // joinUser
@@ -86,6 +86,13 @@ export const SocketClient = () => {
         socket.on('createNotifyToClient', msg =>{
             dispatch({type: NOTIFY_TYPES.CREATE_NOTIFY, payload: msg})
 
+            if(notify.sound) audioRef.current.play()
+            spawnNotification(
+                msg.user.username + ' ' + msg.text,
+                msg.user.avatar,
+                msg.url,
+                'V-NETWORK'
+            )
         })
 
         return () => socket.off('createNotifyToClient')
