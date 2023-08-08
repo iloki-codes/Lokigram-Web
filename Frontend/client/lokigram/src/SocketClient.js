@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { POST_TYPES } from './redux/actions/postAction.js';
 import { GLOBALTYPES } from './redux/actions/globalTypes'
 import { NOTIFY_TYPES } from './redux/actions/notifyAction.js';
 import { MESS_TYPES } from './redux/actions/messageAction.js';
-import PrivateRouter from './customRouter/PrivateRouter.js';
+
+import audiobell from './assets/got-it-done-613.mp3';
 
 const spawnNotification = (body, icon, url, title) => {
     let options = {
@@ -20,7 +21,8 @@ const spawnNotification = (body, icon, url, title) => {
 
 export const SocketClient = () => {
     const { auth, socket, notify } = useSelector(state => state)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const audioRef = useRef();
 
     // joinUser
     useEffect(() => {
@@ -91,7 +93,7 @@ export const SocketClient = () => {
                 msg.user.username + ' ' + msg.text,
                 msg.user.avatar,
                 msg.url,
-                'V-NETWORK'
+                'Lokigram'
             )
         })
 
@@ -127,7 +129,9 @@ export const SocketClient = () => {
 
     return (
         <>
-            <PrivateRouter />  
+              <audio controls ref={audioRef} style={{display: 'none'}} >
+                <source src={audiobell} type="audio/mp3" />
+            </audio> 
         </>
     )
 }

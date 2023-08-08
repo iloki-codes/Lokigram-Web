@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CommentDisplay from './comments/CommentDisplSay.js';
+import CommentDisplay from './comments/CommentDisplay.js';
 
 const Comments = ({post}) => {
     const [comments, setComments] = useState([])

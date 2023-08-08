@@ -1,6 +1,6 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-// import NotFound from '../components/NotFound';
+import NotFound from '../components/NotFound';
 import { useSelector } from 'react-redux';
 
 const generatePage = (pageName) => {
@@ -11,7 +11,7 @@ const generatePage = (pageName) => {
     } catch (err) {
         return console.log(err);
         
-        // <NotFound />
+        <NotFound />
     }
 }
 
