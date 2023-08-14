@@ -1,10 +1,10 @@
-import { Route, Navigate, Routes } from 'react-router-dom';
+import { Route,Routes, Navigate } from 'react-router-dom';
 
 const PrivateRouter = (props) => {
 
       const firstLogin = localStorage.getItem('firstLogin');
       return firstLogin 
-      ?  <Route {...props} /> : <Navigate to="/" />
+      ? <Routes><Route {...props} /></Routes> : <Navigate to="/" />
 };
 
 export default PrivateRouter;

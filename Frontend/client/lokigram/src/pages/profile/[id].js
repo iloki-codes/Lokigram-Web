@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 import Info from '../../components/profile/Info.js';
 import Post from '../../components/profile/Post.js';
@@ -7,7 +7,7 @@ import Post from '../../components/profile/Post.js';
 import { useSelector, useDispatch } from 'react-redux'
 import LoadIcon from '../../assets/loading.gif';
 import { getProfileUsers } from '../../redux/actions/profileAction'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
 
 const Profile = () => {

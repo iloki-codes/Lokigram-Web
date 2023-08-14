@@ -1,4 +1,4 @@
-import { GLOBALTYPES } from '../actions/globalTypes'
+import { GLOBALTYPES } from '../actions/globalTypes.js';
 
 const initialState = {}
 

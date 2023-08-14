@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Home from './pages/Home.js';
 import Login from './pages/Login.js';
-import PageRender from './customRouter/PageRender.js';
-import PrivateRouter from './customRouter/PrivateRouter.js';
+// import PageRender from './customRouter/PageRender.js';
+// import PrivateRouter from './customRouter/PrivateRouter.js';
 
 import Header from './components/header/Header.js';
 import Notify from './components/alert/Alert.js';
@@ -21,7 +21,9 @@ import Peer from 'peerjs';
 import SocketClient from './SocketClient.js';
 
 function App() {
-  const { auth, status, modal } = useSelector(state => state)
+  const { auth, status, modal } = useSelector(state => state);
+  console.log(auth, status, modal); //
+  
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -61,6 +63,7 @@ function App() {
   },[dispatch])
   
   return (
+
     <>
 
       <Router>
@@ -79,12 +82,12 @@ function App() {
 
 
           <Routes>
-            <Route exact path="/" component={auth.token ? Home : Login} />
-            <Route exact path="/register" component={Register} />
+            <Route path="/" component={auth.token ? <Home /> : <Login />} />
+            <Route key={Register} path="/register" element={<Register />} />
           </Routes>
 
-          <PrivateRouter exact path="/:page" component={PageRender} />
-          <PrivateRouter exact path="/:page/:id" component={PageRender} />
+          {/* <PrivateRouter key={PageRender} path="/:page" element={<PageRender />} />
+          <PrivateRouter path="/:page/:id" component={PageRender} /> */}
           
         </div>
       

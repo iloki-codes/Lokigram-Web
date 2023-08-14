@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../redux/actions/authAction';
 import { useDispatch, useSelector } from 'react-redux';
-
+// import Register from '../pages/Register.js';
 import smlogo from '../assets/smlogo.png';
 
 
@@ -42,7 +42,9 @@ const Login = () => {
                 <h3 className="text-uppercase text-center mb-4">Lokigram</h3>
 
                 <div className="form-group">
+
                     <label htmlFor="exampleInputEmail1">Email address</label>
+                    
                     <input type="email" className="form-control" id="exampleInputEmail1" name="email"
                     aria-describedby="emailHelp" onChange={handleChangeInput} value={email} />
                     
@@ -52,6 +54,7 @@ const Login = () => {
                 </div>
 
                 <div className="form-group">
+                    
                     <label htmlFor="exampleInputPassword1">Password</label>
 
                     <div className="pass">
@@ -73,11 +76,14 @@ const Login = () => {
                 </button>
 
                 <p className="my-2">
-                    You don't have an account? <Link to="/register" style={{color: "crimson"}}>Register Now</Link>
+                    You don't have an account? <Link to='/register' relative='path' style={{color: "crimson"}}>Register Now</Link>
                 </p>
+            
             </form>
+        
         </div>
     )
+
 }
 
 export default Login;
