@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const messageCtrl = require('../src/controllers/messageCtrl.js');
-const auth = require('../src/middleware/auth.js');
+const messageCtrl = require('../controllers/messageCtrl.js');
+const auth = require('../middleware/auth.js');
 
 router.post('/message', auth, messageCtrl.createMessage)
 

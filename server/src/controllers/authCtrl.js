@@ -1,11 +1,16 @@
 const Users = require('../models/user.schema.js');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+require('dotenv').config();
+
 
 const authCtrl = {
     register: async (req, res) => {
         try {
             const { fullname, username, email, password, gender } = req.body
+
+            console.log(req.body);
+            
             let newUserName = username.toLowerCase().replace(/ /g, '')
 
             const user_name = await Users.findOne({username: newUserName})
@@ -65,6 +70,8 @@ const authCtrl = {
 
             const access_token = createAccessToken({id: user._id})
             const refresh_token = createRefreshToken({id: user._id})
+
+            console.log({access_token, refresh_token});
 
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,

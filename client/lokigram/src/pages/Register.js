@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { register } from '../redux/actions/authAction.js';
 
-import smlogo from '../assets/smlogo.png';
+// import smlogo from '../assets/smlogo.png';
+import Login from './Login.js';
 
 
 const Register = () => {
@@ -37,9 +38,10 @@ const Register = () => {
     }
 
     return (
+
         <div className="auth_page">
 
-            <img src={smlogo} alt='logo' className='w-60 h-72 fixed top-48 left-60'/>
+            {/* <img src={smlogo} alt='logo' className='w-60 h-72 fixed top-48 left-60'/> */}
 
             <form onSubmit={handleSubmit}>
 

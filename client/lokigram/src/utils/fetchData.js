@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-export const BASE_URL = null;
+export const BASE_URL = "https://localhost:5000/";
 
 export const getDataAPI = async (url, token) => {
     const res = await axios.get(`/api/${url}`, {

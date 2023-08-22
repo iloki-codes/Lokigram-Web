@@ -83,11 +83,11 @@ function App() {
 
           <Routes>
             <Route path="/" component={auth.token ? <Home /> : <Login />} />
-            <Route key={Register} path="/register" element={<Register />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
 
-          {/* <PrivateRouter key={PageRender} path="/:page" element={<PageRender />} />
-          <PrivateRouter path="/:page/:id" component={PageRender} /> */}
+          {/* <PrivateRouter path="/:page" element={<PageRender />} />
+          <PrivateRouter path="/:page/:id" element={<PageRender />} /> */}
           
         </div>
       

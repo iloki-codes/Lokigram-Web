@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const authCtrl = require('../src/controllers/authCtrl.js');
+const authCtrl = require('../controllers/authCtrl.js');
 
 router.post('/register', authCtrl.register)
 

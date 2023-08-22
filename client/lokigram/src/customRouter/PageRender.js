@@ -4,10 +4,10 @@ import NotFound from '../components/NotFound.js';
 import { useSelector } from 'react-redux';
 
 const generatePage = (pageName) => {
-    const component = () => require(`../pages/${pageName}`).default
+    const component = () => require(`../pages/${pageName}`).default;
 
     try {
-        return React.createElement(component())
+        return React.createElement(component());
     } catch (err) {
         return <NotFound />
     }
@@ -15,7 +15,7 @@ const generatePage = (pageName) => {
 
 const PageRender = () => {
     const {page, id} = useParams();
-    const { auth } = useSelector(state => state)
+    const { auth } = useSelector(state => state);
 
     let pageName = "";
 
@@ -25,6 +25,8 @@ const PageRender = () => {
         }else{
             pageName = `${page}`;
         }
+        console.log(pageName);
+         
     }
 
     return generatePage(pageName);
