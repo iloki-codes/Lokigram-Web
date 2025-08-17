@@ -10,7 +10,7 @@ const authCtrl = {
             const { fullname, username, email, password, gender } = req.body
 
             console.log(req.body);
-            
+
             let newUserName = username.toLowerCase().replace(/ /g, '')
 
             const user_name = await Users.findOne({username: newUserName})
@@ -34,14 +34,14 @@ const authCtrl = {
 
             console.log(access_token);
             console.log(refresh_token);
-            
+
 
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
-                path: '/api/refresh_token',
+                path: '/api/v1/refresh_token',
                 maxAge: 30*24*60*60*1000 // 30days
             })
-        
+
             await newUser.save()
 
             res.json({
@@ -75,7 +75,7 @@ const authCtrl = {
 
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
-                path: '/api/refresh_token',
+                path: '/api/v1/refresh_token',
                 maxAge: 30*24*60*60*1000 // 30days
             })
 
@@ -93,7 +93,7 @@ const authCtrl = {
     },
     logout: async (req, res) => {
         try {
-            res.clearCookie('refreshtoken', {path: '/api/refresh_token'})
+            res.clearCookie('refreshtoken', {path: '/api/v1/refresh_token'})
             return res.json({msg: "Logged out!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -101,8 +101,9 @@ const authCtrl = {
     },
     generateAccessToken: async (req, res) => {
         try {
-            const rf_token = req.cookies.refreshtoken
-            if(!rf_token) return res.status(400).json({msg: "Please login now."})
+            const rf_token = req.cookies.refreshtoken;
+            console.log(req.cookies);
+            if(!rf_token) return res.status(400).json({msg: "Please login now."});
 
             jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, async(err, result) => {
                 if(err) return res.status(400).json({msg: "Please login now."})
@@ -119,7 +120,7 @@ const authCtrl = {
                     user
                 })
             })
-            
+
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -128,11 +129,11 @@ const authCtrl = {
 
 
 const createAccessToken = (payload) => {
-    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'})
+    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '365d'})
 }
 
 const createRefreshToken = (payload) => {
-    return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '30d'})
+    return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '365d'})
 }
 
-module.exports = authCtrl
+module.exports = authCtrl;

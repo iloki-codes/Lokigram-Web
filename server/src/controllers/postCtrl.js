@@ -20,18 +20,21 @@ class APIfeatures {
 const postCtrl = {
     createPost: async (req, res) => {
         try {
-            const { content, images } = req.body
+            const { content } = req.body;
+            const images = req.files || [];
 
-            if(images.length === 0)
-            return res.status(400).json({msg: "Please add your photo."})
+            if(!content) return res.status(400).json({msg: "Please write something!"});
+            if(images.length === 0) return res.status(400).json({msg: "Please add a photo."});
 
             const newPost = new Posts({
-                content, images, user: req.user._id
+                content,
+                images: images?.path,
+                user: req.user._id
             })
-            await newPost.save()
+            await newPost.save();
 
             res.json({
-                msg: 'Created Post!',
+                msg: 'Post Created Successfully!',
                 newPost: {
                     ...newPost._doc,
                     user: req.user
@@ -45,7 +48,7 @@ const postCtrl = {
         try {
             const features =  new APIfeatures(Posts.find({
                 user: [...req.user.following, req.user._id]
-            }), req.query).paginating()
+            }), req.query).paginating();
 
             const posts = await features.query.sort('-createdAt')
             .populate("user likes", "avatar username fullname followers")
@@ -55,7 +58,7 @@ const postCtrl = {
                     path: "user likes",
                     select: "-password"
                 }
-            })
+            });
 
             res.json({
                 msg: 'Success!',
@@ -69,10 +72,12 @@ const postCtrl = {
     },
     updatePost: async (req, res) => {
         try {
-            const { content, images } = req.body
+            const { content } = req.body;
+            const images = req.files || [];
 
             const post = await Posts.findOneAndUpdate({_id: req.params.id}, {
-                content, images
+                content,
+                images: images?.path
             }).populate("user likes", "avatar username fullname")
             .populate({
                 path: "comments",
@@ -83,10 +88,11 @@ const postCtrl = {
             })
 
             res.json({
-                msg: "Updated Post!",
+                msg: "Post Updated Successfully!",
                 newPost: {
                     ...post._doc,
-                    content, images
+                    content,
+                    images: images?.path
                 }
             })
         } catch (err) {
@@ -119,7 +125,7 @@ const postCtrl = {
 
             if(!like) return res.status(400).json({msg: 'This post does not exist.'})
 
-            res.json({msg: 'UnLiked Post!'})
+            res.json({msg: 'Post UnLiked!'})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -128,7 +134,7 @@ const postCtrl = {
     getUserPosts: async (req, res) => {
         try {
             const features = new APIfeatures(Posts.find({user: req.params.id}), req.query)
-            .paginating()
+            .paginating();
             const posts = await features.query.sort("-createdAt")
 
             res.json({
@@ -190,7 +196,7 @@ const postCtrl = {
             await Comments.deleteMany({_id: {$in: post.comments }})
 
             res.json({
-                msg: 'Deleted Post!',
+                msg: 'Post Deleted Successfully!',
                 newPost: {
                     ...post,
                     user: req.user
@@ -212,7 +218,7 @@ const postCtrl = {
 
             if(!save) return res.status(400).json({msg: 'This user does not exist.'})
 
-            res.json({msg: 'Saved Post!'})
+            res.json({msg: 'Post Saved!'})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -226,7 +232,7 @@ const postCtrl = {
 
             if(!save) return res.status(400).json({msg: 'This user does not exist.'})
 
-            res.json({msg: 'unSaved Post!'})
+            res.json({msg: 'Post Unsaved!'})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -251,4 +257,4 @@ const postCtrl = {
     },
 }
 
-module.exports = postCtrl
+module.exports = postCtrl;

@@ -5,9 +5,9 @@ const Posts = require('../models/post.schema.js');
 const commentCtrl = {
     createComment: async (req, res) => {
         try {
-            const { postId, content, tag, reply, postUserId } = req.body
+            const { postId, content, tag, reply, postUserId } = req.body;
 
-            const post = await Posts.findById(postId)
+            const post = await Posts.findById(postId);
             if(!post) return res.status(400).json({msg: "This post does not exist."})
 
             if(reply){
@@ -34,7 +34,7 @@ const commentCtrl = {
     updateComment: async (req, res) => {
         try {
             const { content } = req.body
-            
+
             await Comments.findOneAndUpdate({
                 _id: req.params.id, user: req.user._id
             }, {content})

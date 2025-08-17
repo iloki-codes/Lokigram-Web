@@ -1,28 +1,30 @@
 import { useEffect } from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
+import PageRender from './customRouter/PageRender.js';
+import PrivateRouter from './customRouter/PrivateRouter.js';
 import Home from './pages/Home.js';
 import Login from './pages/Login.js';
-// import PageRender from './customRouter/PageRender.js';
-// import PrivateRouter from './customRouter/PrivateRouter.js';
 
-import Header from './components/header/Header.js';
-import Notify from './components/alert/Alert.js';
-import Register from './pages/Register.js';
 import StatusModal from './components/StatusModal.js';
+import Notify from './components/alert/Alert.js';
+import Header from './components/header/Header.js';
+import Register from './pages/Register.js';
 
-import { refreshToken } from './redux/actions/authAction.js';
-import { getPosts } from './redux/actions/postAction.js';
-import { io } from 'socket.io-client';
-import { GLOBALTYPES } from './redux/actions/globalTypes.js';
 import Peer from 'peerjs';
+import { io } from 'socket.io-client';
 import SocketClient from './SocketClient.js';
+import { refreshToken } from './redux/actions/authAction.js';
+import { GLOBALTYPES } from './redux/actions/globalTypes.js';
+import { getNotifies } from './redux/actions/notifyAction.js';
+import { getPosts } from './redux/actions/postAction.js';
+import { getSuggestions } from './redux/actions/suggestionsAction.js';
 
 function App() {
 
   const { auth, status, modal } = useSelector(state => state);
-  console.log(auth, status, modal); //
+  console.log(auth, status, modal);
 
   const dispatch = useDispatch();
 
@@ -36,8 +38,8 @@ function App() {
   useEffect(() => {
     if(auth.token) {
       dispatch(getPosts(auth.token))
-      // dispatch(getSuggestions(auth.token))
-      // dispatch(getNotifies(auth.token))
+      dispatch(getSuggestions(auth.token))
+      dispatch(getNotifies(auth.token))
     }
   }, [dispatch, auth.token]);
 
@@ -86,8 +88,8 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Routes>
 
-          {/* <PrivateRouter path="/:page" element={<PageRender />} />
-          <PrivateRouter path="/:page/:id" element={<PageRender />} /> */}
+          <PrivateRouter path="/:page" element={<PageRender />} />
+          <PrivateRouter path="/:page/:id" element={<PageRender />} />
 
         </div>
 

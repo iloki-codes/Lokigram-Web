@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-
 const userSchema = new mongoose.Schema({
     fullname: {
         type: String,
@@ -29,12 +28,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png'
     },
-    role: {type: String, default: 'user'},
+    role: {type: String, enum: ["admin", "user"], default: 'user'},
     gender: {type: String, default: 'male'},
     mobile: {type: String, default: ''},
     address: {type: String, default: ''},
     story: {
-        type: String, 
+        type: String,
         default: '',
         maxlength: 200
     },

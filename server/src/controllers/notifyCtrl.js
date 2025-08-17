@@ -1,19 +1,25 @@
 const Notifies = require('../models/notify.schema.js');
 
-
 const notifyCtrl = {
     createNotify: async (req, res) => {
         try {
-            const { id, recipients, url, text, content, image } = req.body
+            const { id, recipients, url, text, content } = req.body;
+            const { images } = req.file || "";
 
             if(recipients.includes(req.user._id.toString())) return;
 
             const notify = new Notifies({
-                id, recipients, url, text, content, image, user: req.user._id
+                id,
+                recipients,
+                url,
+                text,
+                content,
+                images: images?.path,
+                user: req.user._id
             })
 
-            await notify.save()
-            return res.json({notify})
+            await notify.save();
+            return res.json({notify});
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -21,10 +27,13 @@ const notifyCtrl = {
     removeNotify: async (req, res) => {
         try {
             const notify = await Notifies.findOneAndDelete({
-                id: req.params.id, url: req.query.url
+                id: req.params.id,
+                url: req.query.url
             })
-            
-            return res.json({notify})
+
+            return res.json({
+                msg: "Notification Deleted!"
+            });
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -33,7 +42,7 @@ const notifyCtrl = {
         try {
             const notifies = await Notifies.find({recipients: req.user._id})
             .sort('-createdAt').populate('user', 'avatar username')
-            
+
             return res.json({notifies})
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -45,15 +54,15 @@ const notifyCtrl = {
                 isRead: true
             })
 
-            return res.json({notifies})
+            return res.json({notifies});
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
     },
     deleteAllNotifies: async (req, res) => {
         try {
-            const notifies = await Notifies.deleteMany({recipients: req.user._id})
-            
+            const notifies = await Notifies.deleteMany({});
+
             return res.json({notifies})
         } catch (err) {
             return res.status(500).json({msg: err.message})

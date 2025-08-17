@@ -5,7 +5,7 @@ const userCtrl = {
         try {
             const users = await Users.find({username: {$regex: req.query.username}})
             .limit(10).select("fullname username avatar")
-            
+
             res.json({users})
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -16,10 +16,21 @@ const userCtrl = {
             const user = await Users.findById(req.params.id).select('-password')
             .populate("followers following", "-password")
             if(!user) return res.status(400).json({msg: "User does not exist."})
-            
+
             res.json({user})
         } catch (err) {
             return res.status(500).json({msg: err.message})
+        }
+    },
+    getAllUsers: async (req, res) => {
+        try {
+            let users = [];
+            users = await Users.find({}).select("username avatar");
+            if(users.length === 0) return res.status(404).json({msg: "No Users."});
+
+            res.json({users})
+        } catch (err) {
+            return res.status(500).json({msg: err.message});
         }
     },
     updateUser: async (req, res) => {
@@ -39,12 +50,12 @@ const userCtrl = {
     },
     follow: async (req, res) => {
         try {
-            const user = await Users.find({_id: req.params.id, followers: req.user._id})
+            const user = await Users.find({_id: req.params.id, followers: req.user._id});
             if(user.length > 0) return res.status(500).json({msg: "You followed this user."})
 
-            const newUser = await Users.findOneAndUpdate({_id: req.params.id}, { 
+            const newUser = await Users.findOneAndUpdate({_id: req.params.id}, {
                 $push: {followers: req.user._id}
-            }, {new: true}).populate("followers following", "-password")
+            }, {new: true}).populate("followers following", "-password");
 
             await Users.findOneAndUpdate({_id: req.user._id}, {
                 $push: {following: req.params.id}
@@ -59,7 +70,7 @@ const userCtrl = {
     unfollow: async (req, res) => {
         try {
 
-            const newUser = await Users.findOneAndUpdate({_id: req.params.id}, { 
+            const newUser = await Users.findOneAndUpdate({_id: req.params.id}, {
                 $pull: {followers: req.user._id}
             }, {new: true}).populate("followers following", "-password")
 
@@ -75,16 +86,16 @@ const userCtrl = {
     },
     suggestionsUser: async (req, res) => {
         try {
-            const newArr = [...req.user.following, req.user._id]
+            const newArr = [...req.user.following, req.user._id];
 
-            const num  = req.query.num || 10
+            const num  = req.query.num || 10;
 
             const users = await Users.aggregate([
                 { $match: { _id: { $nin: newArr } } },
                 { $sample: { size: Number(num) } },
                 { $lookup: { from: 'users', localField: 'followers', foreignField: '_id', as: 'followers' } },
                 { $lookup: { from: 'users', localField: 'following', foreignField: '_id', as: 'following' } },
-            ]).project("-password")
+            ]).project("-password");
 
             return res.json({
                 users,

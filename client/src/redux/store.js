@@ -1,16 +1,16 @@
-import { createStore } from 'redux';
-import { applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { configureStore } from "@reduxjs/toolkit";
+import { applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-
 import rootReducer from './reducers/index.js';
 
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(thunk))
-)
+const store = configureStore({
+    reducer: {
+        rootReducer,
+    },
+    // composeWithDevTools(applyMiddleware(thunk))
+});
 
 const DataProvider = ({children}) => {
     return(
@@ -20,4 +20,4 @@ const DataProvider = ({children}) => {
     )
 }
 
-export default DataProvider
+export default DataProvider;

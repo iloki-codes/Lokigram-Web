@@ -1,3 +1,4 @@
+const { default: mongoose, Types, ObjectId } = require('mongoose');
 const Conversations = require('../models/conversation.schema.js');
 const Messages = require('../models/message.schema.js');
 
@@ -19,7 +20,8 @@ class APIfeatures {
 const messageCtrl = {
     createMessage: async (req, res) => {
         try {
-            const { sender, recipient, text, media, call } = req.body
+            const { sender, recipient, text, call } = req.body;
+            const { media: images } = req.files || [];
 
             if(!recipient || (!text.trim() && media.length === 0 && !call)) return;
 
@@ -30,18 +32,26 @@ const messageCtrl = {
                 ]
             }, {
                 recipients: [sender, recipient],
-                text, media, call
-            }, { new: true, upsert: true })
+                text,
+                images: images?.path,
+                call
+            }, {
+                new: true,
+                upsert: true
+            })
 
             const newMessage = new Messages({
                 conversation: newConversation._id,
-                sender, call,
-                recipient, text, media
+                sender,
+                call,
+                recipient,
+                text,
+                images: images?.path,
             })
 
-            await newMessage.save()
+            await newMessage.save();
 
-            res.json({msg: 'Create Success!'})
+            res.json({msg: 'Msg Created Successfully!'});
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -88,24 +98,31 @@ const messageCtrl = {
     deleteMessages: async (req, res) => {
         try {
             await Messages.findOneAndDelete({_id: req.params.id, sender: req.user._id})
-            res.json({msg: 'Delete Success!'})
+            res.json({msg: 'Message Deleted!'})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
     },
     deleteConversation: async (req, res) => {
         try {
+            const userId = req.user._id;
+            const paramsId = req.params.id;
+
+            if(paramsId && userId !== mongoose.Types.ObjectId) {
+                mongoose.Types.ObjectId.isValid(userId);
+                mongoose.Types.ObjectId.isValid(paramsId); // error
+            }
             const newConver = await Conversations.findOneAndDelete({
                 $or: [
-                    {recipients: [req.user._id, req.params.id]},
-                    {recipients: [req.params.id, req.user._id]}
+                    {recipients: [userId, paramsId]},
+                    {recipients: [paramsId, userId]}
                 ]
-            })
-            await Messages.deleteMany({conversation: newConver._id})
-            
-            res.json({msg: 'Delete Success!'})
+            });
+            await Messages.deleteMany({conversation: newConver._id});
+
+            res.json({msg: 'Conversation Deleted Successfully!'});
         } catch (err) {
-            return res.status(500).json({msg: err.message})
+            return res.status(500).json({msg: err.message});
         }
     },
 }

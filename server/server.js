@@ -1,10 +1,11 @@
-// import config from 'dotenv';
 // import express from 'express';
 // import { cors } from 'cors';
 // import cookieParser from 'cookie-parser';
 // import SocketServer from './SocketServer.js';
 // import { ExpressPeerServer } from 'peer';
 // import path from 'path';
+// import dotenv from 'dotenv';
+// import mongoose from 'mongoose';
 
 require('dotenv').config();
 const express = require('express');
@@ -15,9 +16,15 @@ const SocketServer = require('./SocketServer.js');
 const { ExpressPeerServer } = require('peer')
 const path = require('path');
 
+// dotenv.config();
 const app = express();
+
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"],
+    credentials: true
+}));
 app.use(cookieParser());
 
 
@@ -33,57 +40,41 @@ io.on('connection', socket => {
 ExpressPeerServer(http, { path: '/' });
 
 // Routes
-app.use('/api', require('./src/routes/authRouter.js'));
-app.use('/api', require('./src/routes/userRouter.js'));
-app.use('/api', require('./src/routes/postRouter.js'));
-app.use('/api', require('./src/routes/commentRouter.js'));
-app.use('/api', require('./src/routes/notifyRouter'));
-app.use('/api', require('./src/routes/messageRouter.js'));
+app.use('/api/v1', require('./src/routes/authRouter.js'));
+app.use('/api/v1', require('./src/routes/userRouter.js'));
+app.use('/api/v1', require('./src/routes/postRouter.js'));
+app.use('/api/v1', require('./src/routes/commentRouter.js'));
+app.use('/api/v1', require('./src/routes/notifyRouter.js'));
+app.use('/api/v1', require('./src/routes/messageRouter.js'));
+
+app.use("/uploads", express.static("uploads"));
 
 
 const URI = process.env.MONGODB_URL;
+const port = process.env.PORT || 5000;
 
-// mongoose.connect(URI, {
-//     useCreateIndex: true,
-//     useFindAndModify: false,
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// })   
-// console.log('Connected to mongodb')
-
-
-const connectToMongo = async () => {
-    await mongoose.connect(URI);
-    console.log("Connected to MongoDB");
+const MONGO_DB = async () => {
+    await mongoose
+        .connect(URI)
+        .then((c) => console.log("DB Connected succesfully"))
+        .catch((e) => console.log(e));
   };
-  
-  connectToMongo();
+
+  MONGO_DB();
 
 if(process.env.NODE_ENV === 'production') {
 
-    app.use(express.static('Social Media App\client\lokigram\build'));
-    
-    app.get('*', (req, res) => {
+    app.use(express.static(path.join(__dirname, '../client/public')));
 
-        res.sendFile(path.join(__dirname, 'Social Media App', 'client', 'lokigram', 'build', 'index.html'));
-        
-        res.sendFile('index.html' , { root : __dirname});
-        
-        app.use(express.static('../Frontend/client/lokigram/build/index.html'));
-
-        app.get('*', (req, res) => {
-            res.sendFile('index.html', { root : __dirname});
-        } );
-    } );
+    app.get('/{*any}', (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'client', 'public', 'index.html'));
+    });
+} else {
+    app.get("/", (req, res) => {
+        res.send(`API is working with /api/v1`);
+    });
 }
-
-const port = process.env.PORT || 5000;
-
-
-// http.get("/", (req, res) => {
-//     res.status(200).send("<h1>Hello</h1>");
-// });
 
 http.listen(port, () => {
     console.log('Server is running on port', port)
-})
+});
