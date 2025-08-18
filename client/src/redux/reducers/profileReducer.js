@@ -8,7 +8,7 @@ const initialState = {
     posts: []
 }
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action={}) => {
     switch (action.type){
         case PROFILE_TYPES.LOADING:
             return {

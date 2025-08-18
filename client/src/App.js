@@ -7,19 +7,18 @@ import PrivateRouter from './customRouter/PrivateRouter.js';
 import Home from './pages/Home.js';
 import Login from './pages/Login.js';
 
+import Footer from './components/Footer.js';
 import StatusModal from './components/StatusModal.js';
 import Notify from './components/alert/Alert.js';
 import Header from './components/header/Header.js';
 import Register from './pages/Register.js';
 
-import Peer from 'peerjs';
-import { io } from 'socket.io-client';
 import SocketClient from './SocketClient.js';
 import { refreshToken } from './redux/actions/authAction.js';
-import { GLOBALTYPES } from './redux/actions/globalTypes.js';
 import { getNotifies } from './redux/actions/notifyAction.js';
 import { getPosts } from './redux/actions/postAction.js';
 import { getSuggestions } from './redux/actions/suggestionsAction.js';
+import { useSocket } from './socketContext.js';
 
 function App() {
 
@@ -28,11 +27,10 @@ function App() {
 
   const dispatch = useDispatch();
 
+ const socket = useSocket();
+
   useEffect(() => {
     dispatch(refreshToken());
-    const socket = io();
-    dispatch({type: GLOBALTYPES.SOCKET, payload: socket});
-    return () => socket.close()
   },[dispatch]);
 
   useEffect(() => {
@@ -56,19 +54,19 @@ function App() {
     }
   },[])
 
-  useEffect(() => {
-    const newPeer = new Peer(undefined, {
-      path: '/', secure: true
-    })
+  // useEffect(() => {
+  //   const newPeer = new Peer(undefined, {
+  //     host: '/', secure: true                 // host
+  //   })
 
-    dispatch({ type: GLOBALTYPES.PEER, payload: newPeer })
-  },[dispatch])
+  //   dispatch({ type: GLOBALTYPES.PEER, payload: newPeer })
+  // },[dispatch])
 
   return (
 
     <>
 
-      <Router>
+    <Router>
 
       <Notify />
 
@@ -76,20 +74,31 @@ function App() {
 
         <div className="main ml-40 mr-40">
 
-          <Login />
+          {/* {!auth.token && <Login />} */}
 
           {auth.token && <Header />}
           {status && <StatusModal />}
-          {auth.token && <SocketClient />}
+          {auth.token && socket && <SocketClient />}
 
 
           <Routes>
-            <Route path="/" component={auth.token ? <Home /> : <Login />} />
+            <Route path="/" element={auth.token ? <Home /> : <Login />} />
             <Route path="/register" element={<Register />} />
-          </Routes>
 
-          <PrivateRouter path="/:page" element={<PageRender />} />
-          <PrivateRouter path="/:page/:id" element={<PageRender />} />
+            <Route path="/:page" element={
+              <PrivateRouter>
+                <PageRender />
+              </PrivateRouter>
+              }
+              />
+            <Route path="/:page/:id" element={
+              <PrivateRouter>
+                <PageRender />
+              </PrivateRouter>
+              }
+            />
+
+          </Routes>
 
         </div>
 
@@ -97,9 +106,7 @@ function App() {
 
     </Router>
 
-      <footer>
-          <p className='fixed bottom-0 left-64 pl-96 pr-96 bg-emerald-500 text-lg'>Lokigram Version 0.1.0</p>
-      </footer>
+      <Footer />
 
     </>
 

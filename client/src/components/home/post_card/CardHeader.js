@@ -6,10 +6,12 @@ import moment from 'moment';
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes.js';
 import { deletePost } from '../../../redux/actions/postAction.js';
 import { BASE_URL } from '../../../utils/fetchData.js';
+import { useSocket } from '../../../socketContext.js';
 
 const CardHeader = ({post}) => {
-    const { auth, socket } = useSelector(state => state)
-    const dispatch = useDispatch()
+    const { auth } = useSelector(state => state)
+    const dispatch = useDispatch();
+    const socket = useSocket();
 
     const navigate = useNavigate();
 

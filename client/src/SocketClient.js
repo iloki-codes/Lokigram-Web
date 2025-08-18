@@ -6,6 +6,7 @@ import { NOTIFY_TYPES } from './redux/actions/notifyAction.js';
 import { MESS_TYPES } from './redux/actions/messageAction.js';
 
 import audiobell from './assets/got-it-done-613.mp3';
+import { useSocket } from './socketContext.js';
 
 const spawnNotification = (body, icon, url, title) => {
     let options = {
@@ -19,14 +20,15 @@ const spawnNotification = (body, icon, url, title) => {
     }
 }
 
-export const SocketClient = () => {
-    const { auth, socket, notify } = useSelector(state => state)
+const SocketClient = () => {
+    const { auth, notify } = useSelector(state => state)
     const dispatch = useDispatch();
     const audioRef = useRef();
+    const socket = useSocket();
 
     // joinUser
     useEffect(() => {
-        socket.emit('joinUser', auth.user)
+        if (auth?.user) socket.emit('joinUser', auth.user)
     },[socket, auth.user])
 
     // Likes

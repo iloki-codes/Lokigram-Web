@@ -8,7 +8,7 @@ const initialState = {
     page: 2
 }
 
-const postReducer = (state = initialState, action) => {
+const postReducer = (state = initialState, action={}) => {
     switch (action.type){
         case POST_TYPES.CREATE_POST:
             return {

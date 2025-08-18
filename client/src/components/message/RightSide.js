@@ -4,15 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import LoadIcon from '../../assets/loading.gif';
 import { GLOBALTYPES } from '../../redux/actions/globalTypes.js';
 import { addMessage, deleteConversation, getMessages, loadMoreMessages } from '../../redux/actions/messageAction.js';
+import { useSocket } from '../../socketContext.js';
 import { imageUpload } from '../../utils/imageUpload.js';
 import { imageShow, videoShow } from '../../utils/mediaShow.js';
 import Icons from '../Icons';
 import User from '../User.js';
 import MsgDisplay from './MsgDisplay.js';
 
+
 const RightSide = () => {
-    const { auth, message, theme, socket, peer } = useSelector(state => state)
-    const dispatch = useDispatch()
+
+    const { auth, message, theme, peer } = useSelector(state => state)
+    const dispatch = useDispatch();
+    const socket = useSocket();
 
     const { id } = useParams()
     const [user, setUser] = useState([])
@@ -94,7 +98,8 @@ const RightSide = () => {
         }
 
         setLoadMedia(false)
-        await dispatch(addMessage({msg, auth, socket}))
+        await dispatch(addMessage({msg, auth, socket}));
+            // socket.emit('addMessage', {...msg, user: { _id, avatar, fullname, username } });
         if(refDisplay.current){
             refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
         }

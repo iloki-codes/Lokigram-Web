@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom'
 import Avatar from './Avatar.js';
 import moment from 'moment'
 import { isReadNotify, NOTIFY_TYPES, deleteAllNotifies } from '../redux/actions/notifyAction.js'
+import { useSocket } from '../socketContext.js';
 
 const NotifyModal = () => {
     const { auth, notify } = useSelector(state => state)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const socket = useSocket();
 
     const handleIsRead = (msg) => {
-        dispatch(isReadNotify({msg, auth}))
+        dispatch(isReadNotify({msg, auth, socket})) //
     }
 
     const handleSound = () => {

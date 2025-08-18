@@ -1,7 +1,7 @@
 import { GLOBALTYPES } from '../actions/globalTypes.js';
 
 
-const statusReducer = (state = false, action) => {
+const statusReducer = (state = false, action={}) => {
     switch (action.type){
         case GLOBALTYPES.STATUS:
             return action.payload;

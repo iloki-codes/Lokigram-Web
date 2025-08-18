@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { likePost, unLikePost, savePost, unSavePost } from '../../../redux/actions/postAction.js';
 // import ShareModal from '../../ShareModal'
 import { BASE_URL } from '../../../utils/fetchData.js';
+import { useSocket } from '../../../socketContext.js';
 
 
 const CardFooter = ({post}) => {
@@ -14,8 +15,9 @@ const CardFooter = ({post}) => {
 
     const [isShare, setIsShare] = useState(false)
 
-    const { auth, theme, socket } = useSelector(state => state)
-    const dispatch = useDispatch()
+    const { auth, theme } = useSelector(state => state)
+    const dispatch = useDispatch();
+    const socket = useSocket();
 
     const [saved, setSaved] = useState(false)
     const [saveLoad, setSaveLoad] = useState(false)
@@ -31,7 +33,7 @@ const CardFooter = ({post}) => {
 
     const handleLike = async () => {
         if(loadLike) return;
-        
+
         setLoadLike(true)
         await dispatch(likePost({post, auth, socket}))
         setLoadLike(false)
@@ -57,7 +59,7 @@ const CardFooter = ({post}) => {
 
     const handleSavePost = async () => {
         if(saveLoad) return;
-        
+
         setSaveLoad(true)
         await dispatch(savePost({post, auth}))
         setSaveLoad(false)
@@ -75,7 +77,7 @@ const CardFooter = ({post}) => {
         <div className="card_footer">
             <div className="card_icon_menu">
                 <div>
-                    <LikeButton 
+                    <LikeButton
                     isLike={isLike}
                     handleLike={handleLike}
                     handleUnLike={handleUnLike}
@@ -89,21 +91,21 @@ const CardFooter = ({post}) => {
                 </div>
 
                 {
-                    saved 
+                    saved
                     ?  <i className="fas fa-bookmark text-info"
                     onClick={handleUnSavePost} />
 
                     :  <i className="far fa-bookmark"
                     onClick={handleSavePost} />
                 }
-               
+
             </div>
 
             <div className="d-flex justify-content-between">
                 <h6 style={{padding: '0 25px', cursor: 'pointer'}}>
                     {post.likes.length} likes
                 </h6>
-                
+
                 <h6 style={{padding: '0 25px', cursor: 'pointer'}}>
                     {post.comments.length} comments
                 </h6>

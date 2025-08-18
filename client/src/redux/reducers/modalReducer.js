@@ -2,7 +2,7 @@ import { GLOBALTYPES } from '../actions/globalTypes.js';
 
 const initialState = false
 
-const modalReducer = (state = initialState, action) => {
+const modalReducer = (state = initialState, action={}) => {
     switch (action.type){
         case GLOBALTYPES.MODAL:
             return action.payload;

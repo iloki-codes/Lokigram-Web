@@ -13,11 +13,12 @@ export const MESS_TYPES = {
 
 
 
-export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
+export const addMessage = ({msg, auth, socket}) => async (dispatch) => {
+
     dispatch({type: MESS_TYPES.ADD_MESSAGE, payload: msg})
 
-    const { _id, avatar, fullname, username } = auth.user
-    socket.emit('addMessage', {...msg, user: { _id, avatar, fullname, username } })
+    const { _id, avatar, fullname, username } = auth.user;
+    socket.emit('addMessage', {...msg, user: { _id, avatar, fullname, username } });
 
     try {
         await postDataAPI('message', msg, auth.token)

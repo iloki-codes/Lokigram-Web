@@ -18,9 +18,9 @@ export default combineReducers({
     profile,
     status,
     homePosts,
-    socket,
+    // socket,
     notify,
     modal,
     message,
-    peer
+    // peer
 });

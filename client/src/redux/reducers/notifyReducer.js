@@ -7,7 +7,7 @@ const initialState = {
     sound: false
 }
 
-const notifyReducer = (state = initialState, action) => {
+const notifyReducer = (state = initialState, action={}) => {
     switch (action.type){
         case NOTIFY_TYPES.GET_NOTIFIES:
             return {

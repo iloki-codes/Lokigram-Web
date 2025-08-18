@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createComment } from '../../redux/actions/commentAction.js';
 import Icons from '../Icons.js';
+import { useSocket } from "../../socketContext.js";
 
 const InputComment = ({children, post, onReply, setOnReply}) => {
-    const [content, setContent] = useState('')
 
-    const { auth, socket, theme } = useSelector(state => state)
+    const [content, setContent] = useState('')
+    const { auth, theme } = useSelector(state => state);
+
     const dispatch = useDispatch()
+    const socket = useSocket();
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -27,7 +30,7 @@ const InputComment = ({children, post, onReply, setOnReply}) => {
             tag: onReply && onReply.user
         }
 
-        dispatch(createComment({post, newComment, auth, socket}))
+        dispatch(createComment({post, newComment, auth, socket}));
 
         if(setOnReply) return setOnReply(false);
     }

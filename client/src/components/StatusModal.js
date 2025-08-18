@@ -4,10 +4,12 @@ import { GLOBALTYPES } from '../redux/actions/globalTypes.js';
 import { createPost, updatePost } from '../redux/actions/postAction.js';
 import Icons from './Icons.js';
 import { imageShow, videoShow } from '../utils/mediaShow.js';
+import { useSocket } from '../socketContext.js';
 
 const StatusModal = () => {
-    const { auth, theme, status, socket } = useSelector(state => state)
-    const dispatch = useDispatch()
+    const { auth, theme, status } = useSelector(state => state)
+    const dispatch = useDispatch();
+    const socket = useSocket();
 
     const [content, setContent] = useState('')
     const [images, setImages] = useState([])

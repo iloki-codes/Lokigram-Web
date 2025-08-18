@@ -2,7 +2,7 @@ import { GLOBALTYPES } from '../actions/globalTypes.js';
 
 const initialState = false
 
-const themeReducer = (state = initialState, action) => {
+const themeReducer = (state = initialState, action={}) => {
     switch (action.type){
         case GLOBALTYPES.THEME:
             return action.payload;
