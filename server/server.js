@@ -62,18 +62,18 @@ const MONGO_DB = async () => {
 
   MONGO_DB();
 
-if(process.env.NODE_ENV === 'production') {
+// if(process.env.NODE_ENV === 'production') {
 
-    app.use(express.static(path.join(__dirname, '../client/public')));
+//     app.use(express.static(path.join(__dirname, '../client/public')));
 
-    app.get('/{*any}', (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'client', 'public', 'index.html'));
-    });
-} else {
+//     app.get('/{*any}', (req, res) => {
+//         res.sendFile(path.join(__dirname, '..', 'client', 'public', 'index.html'));
+//     });
+// } else {
     app.get("/", (req, res) => {
         res.send(`API is working with /api/v1`);
     });
-}
+//}
 
 http.listen(port, () => {
     console.log('Server is running on port', port)

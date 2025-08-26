@@ -1,21 +1,16 @@
 .header{
-    width: 100%;
-    min-height: 70px;
+    /* width: 100%; */
     position: sticky;
     top:0;
     left: 0;
     z-index: 20;
-    box-shadow: 0 0 10px #ddd;
-    background: #f8f9fa;
-    border: 1px solid rgb(0, 0, 0, .125);
 }
+
 .header .navbar{
     width: 100%;
-    height: 100%;
+    min-height: 70px;
+
 }
-.header .logo h1{
-    font-size: 2rem;
-} 
 
 /* ----------- Header Menu ---------- */
 .header .menu li{
@@ -31,6 +26,8 @@
     position: absolute;
     left: inherit;
     right: 0;
+    background: none;
+    margin-top: 10px;
 }
 .header .menu label{
     cursor: pointer;
@@ -49,16 +46,20 @@
 /* ---------- Header Search -------- */
 .header .search_form{
     position: relative;
+    background: linear-gradient(to right, #f9a8d4, #fef08a, #fca5a5);
+    min-width: 5vw;
+    outline: 3px;
+    border-radius: 20px;
 }
+
 .header .search_form #search{
-    background: #fafafa;
-    border: 1px solid #ddd;
     min-width: 250px;
     width: 100%;
     outline: none;
     text-indent: 5px;
     border-radius: 3px;
 }
+
 .header .search_form .search_icon{
     position: absolute;
     top: 50%;
@@ -77,13 +78,13 @@
     right: 5px;
     cursor: pointer;
     font-weight: 900;
-    color: crimson;
+    color: #b76e79;
 }
 .header .search_form .users{
     position: absolute;
     width: 100%;
     min-width: 250px;
-    background: #fafafa;
+    background: #f7e7ce;
     max-height: calc(100vh - 150px);
     overflow: auto;
     margin-top: 3px;

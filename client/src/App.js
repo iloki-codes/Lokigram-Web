@@ -7,7 +7,6 @@ import PrivateRouter from './customRouter/PrivateRouter.js';
 import Home from './pages/Home.js';
 import Login from './pages/Login.js';
 
-import Footer from './components/Footer.js';
 import StatusModal from './components/StatusModal.js';
 import Notify from './components/alert/Alert.js';
 import Header from './components/header/Header.js';
@@ -27,7 +26,7 @@ function App() {
 
   const dispatch = useDispatch();
 
- const socket = useSocket();
+  const socket = useSocket();
 
   useEffect(() => {
     dispatch(refreshToken());
@@ -52,15 +51,7 @@ function App() {
         if (permission === "granted") {}
       });
     }
-  },[])
-
-  // useEffect(() => {
-  //   const newPeer = new Peer(undefined, {
-  //     host: '/', secure: true                 // host
-  //   })
-
-  //   dispatch({ type: GLOBALTYPES.PEER, payload: newPeer })
-  // },[dispatch])
+  },[]);
 
   return (
 
@@ -70,7 +61,7 @@ function App() {
 
       <Notify />
 
-      <div className={`App ${(status || modal) && 'mode'}`}>
+      <div className={`App ${(status || modal) && 'mode'} bg-gradient-to-r from-pink-300 via-yellow-200 to-red-300 flex flex-col flex-wrap items-center`}>
 
         <div className="main ml-40 mr-40">
 
@@ -105,9 +96,6 @@ function App() {
       </div>
 
     </Router>
-
-      <Footer />
-
     </>
 
   );

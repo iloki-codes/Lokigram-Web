@@ -7,6 +7,7 @@ import smlogo from '../assets/smlogo.png';
 
 
 const Login = () => {
+
     const initialState = { email: '', password: '' }
     const [userData, setUserData] = useState(initialState)
     const { email, password } = userData
@@ -32,20 +33,19 @@ const Login = () => {
     }
 
     return (
-        <div className="auth_page">
+        <div className="auth_page top-10 flex flex-col justify-items-center gap-5 text ">
 
-            <p className='absolute top-12 left-96 ml-56 text-6xl text-emerald-600 font-extrabold font-mono tracking-widest'>LOKIGRAM</p>
+            <p className='text-6xl font-extrabold font-mono tracking-widest'>LOKIGRAM</p>
 
-            <img src={smlogo} alt='logo' className='w-60 h-72 fixed top-48 right-60'/>
+            <img src={smlogo} alt='logo' className='w-40 h-52 fixed top-[40%] right-60'/>
 
             <form onSubmit={handleSubmit}>
-                <h3 className="text-uppercase text-center mb-4">Lokigram</h3>
 
                 <div className="form-group">
 
                     <label htmlFor="exampleInputEmail1">Email address</label>
 
-                    <input type="email" className="form-control" id="exampleInputEmail1" name="email"
+                    <input type="email" className="form-control text-indigo-200" id="exampleInputEmail1" name="email"
                     aria-describedby="emailHelp" onChange={handleChangeInput} value={email} />
 
                     <small id="emailHelp" className="form-text text-muted text-light-emphasis">
@@ -60,7 +60,7 @@ const Login = () => {
                     <div className="pass">
 
                         <input type={ typePass ? "text" : "password" }
-                        className="form-control" id="exampleInputPassword1"
+                        className="form-control " id="exampleInputPassword1"
                         onChange={handleChangeInput} value={password} name="password" />
 
                         <small onClick={() => setTypePass(!typePass)}>
@@ -70,7 +70,7 @@ const Login = () => {
 
                 </div>
 
-                <button type="submit" className="btn btn-dark w-100"
+                <button type="submit" className="bg-[#b76e79] text-[#f7e7ce] p-2 w-100 border hover:bg-[#f7e7ce] hover:text-[#b76e79] hover:font-bold hover:border-3 hover:border-[#b76e79] hover:cursor-pointer"
                 disabled={email && password ? false : true}>
                     Login
                 </button>
@@ -80,6 +80,10 @@ const Login = () => {
                 </p>
 
             </form>
+
+            <div className='fixed flex bottom-0 w-full h-10 justify-center bg-[#f7e7ce] border-t-1 border-[#b76e79]'>
+                <span className='text-lg text-indigo-400 p-1'>lokigram version 0.1.0</span>
+            </div>
 
         </div>
     )

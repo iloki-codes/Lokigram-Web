@@ -5,9 +5,10 @@ const SocketContext = createContext(null);
 
 export const SocketProvider = ({ children }) => {
   const socketRef = useRef(null);
+  const base = process.env.REACT_APP_BASE_URL;
 
   if (!socketRef.current) {
-    socketRef.current = io("http://localhost:5000", {
+    socketRef.current = io(base, {
       transports: ["websocket"],
     });
   }

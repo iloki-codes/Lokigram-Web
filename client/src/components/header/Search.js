@@ -6,6 +6,7 @@ import User from '../User.js';
 import LoadIcon from '../../assets/loading.gif'
 
 const Search = () => {
+
     const [search, setSearch] = useState('')
     const [users, setUsers] = useState([])
 
@@ -36,7 +37,9 @@ const Search = () => {
     }
 
     return (
+
         <form className="search_form" onSubmit={handleSearch}>
+
             <input type="text" name="search" value={search} id="search" title="Enter to Search"
             onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))} />
 

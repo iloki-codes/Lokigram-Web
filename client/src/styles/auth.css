@@ -5,16 +5,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #b76e79;
 }
 .auth_page form{
     background: #212020ba;
-    backface-visibility: visible;
+    backface-visibility: hidden;
     background-color: transparent;
     max-width: 400px;
     width: 100%;
-    border: 2px solid #08c654;
+    border: 2px solid #b76e79;
     padding: 50px 25px;
-    color: #08c654;
 }
 
 .auth_page form .pass{

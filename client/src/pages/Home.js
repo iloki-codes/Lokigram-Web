@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react';
 
+import Posts from '../components/home/Posts.js';
 import Storytab from '../components/home/Storytab.js';
-import Posts from '../components/home/Posts.js'
 
 import { useSelector } from 'react-redux';
 import LoadIcon from '../assets/loading.gif';
-
+import Footer from '../components/Footer.js';
 
 let scroll = 0;
 
@@ -31,16 +31,18 @@ const Home = () => {
                 <Storytab />
 
                 {
-                    homePosts.loading 
+                    homePosts.loading
                     ? <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
                     : (homePosts.result === 0 && homePosts.posts.length === 0)
                         ? <h2 className="text-center">No Post</h2>
                         : <Posts />
                 }
-                
+
             </div>
-            
-            
+
+            <Footer />
+
+
         </div>
     )
 }
