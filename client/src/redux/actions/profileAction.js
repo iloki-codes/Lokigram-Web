@@ -20,8 +20,8 @@ export const getProfileUsers = ({id, auth}) => async (dispatch) => {
 
     try {
         dispatch({type: PROFILE_TYPES.LOADING, payload: true})
-        const res = getDataAPI(`/user/${id}`, auth.token)
-        const res1 = getDataAPI(`/user_posts/${id}`, auth.token)
+        const res = getDataAPI(`user/${id}`, auth.token)
+        const res1 = getDataAPI(`user_posts/${id}`, auth.token)
 
         const users = await res;
         const posts = await res1;
@@ -40,7 +40,7 @@ export const getProfileUsers = ({id, auth}) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: {error: err.response.data.msg}
+            payload: {error: err.response?.msg}
         })
     }
 
@@ -79,11 +79,11 @@ export const updateProfileUser = ({userData, avatar, auth}) => async (dispatch) 
             }
         })
 
-        dispatch({type: GLOBALTYPES.ALERT, payload: {success: res.data.msg}})
+        dispatch({type: GLOBALTYPES.ALERT, payload: {success: res.msg}})
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: {error: err.response.data.msg}
+            payload: {error: err.response.msg}
         })
     }
 }
@@ -114,7 +114,7 @@ export const follow = ({users, user, auth, socket}) => async (dispatch) => {
 
     try {
         const res = await patchDataAPI(`user/${user._id}/follow`, null, auth.token)
-        socket.emit('follow', res.data.newUser)
+        socket.emit('follow', res.newUser)
 
         // Notify
         const msg = {
@@ -129,7 +129,7 @@ export const follow = ({users, user, auth, socket}) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: {error: err.response.data.msg}
+            payload: {error: err.response?.msg}
         })
     }
 }
@@ -164,7 +164,7 @@ export const unfollow = ({users, user, auth, socket}) => async (dispatch) => {
 
     try {
         const res = await patchDataAPI(`user/${user._id}/unfollow`, null, auth.token)
-        socket.emit('unFollow', res.data.newUser)
+        socket.emit('unFollow', res.newUser)
 
         // Notify
         const msg = {
@@ -179,7 +179,7 @@ export const unfollow = ({users, user, auth, socket}) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: {error: err.response.data.msg}
+            payload: {error: err.response?.msg}
         })
     }
 }

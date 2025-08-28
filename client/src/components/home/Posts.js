@@ -3,33 +3,36 @@ import { useSelector, useDispatch } from 'react-redux'
 import PostCard from '../PostCard.js';
 
 import LoadIcon from '../../assets/loading.gif';
-// import LoadMoreBtn from '../LoadMoreBtn.js';
+import LoadMoreBtn from '../LoadMoreBtn.js';
 import { getDataAPI } from '../../utils/fetchData.js';
 import { POST_TYPES } from '../../redux/actions/postAction.js';
 
 
 const Posts = () => {
     const { homePosts, auth, theme } = useSelector(state => state)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const [load, setLoad] = useState(false)
 
-    // const handleLoadMore = async () => {
-    //     setLoad(true)
-    //     const res = await getDataAPI(`posts?limit=${homePosts.page * 9}`, auth.token)
+    const handleLoadMore = async () => {
+        setLoad(true)
+        const res = await getDataAPI(`posts?limit=${homePosts?.page * 9}`, auth.token)
 
-    //     dispatch({
-    //         type: POST_TYPES.GET_POSTS, 
-    //         payload: {...res.data, page: homePosts.page + 1}
-    //     })
+        dispatch({
+            type: POST_TYPES.GET_POSTS,
+            payload: {
+                ...res,
+                page: homePosts?.page + 1
+            }
+        })
 
-    //     setLoad(false)
-    // }
+        setLoad(false)
+    }
 
     return (
         <div className="posts">
             {
-                homePosts.posts.map(post => (
+                homePosts?.posts?.map(post => (
                     <PostCard key={post._id} post={post} theme={theme} />
                 ))
             }
@@ -38,9 +41,9 @@ const Posts = () => {
                 load && <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
             }
 
-{/*             
-            <LoadMoreBtn result={homePosts.result} page={homePosts.page}
-            load={load} handleLoadMore={handleLoadMore} /> */}
+
+            <LoadMoreBtn result={homePosts?.result} page={homePosts?.page}
+            load={load} handleLoadMore={handleLoadMore} />
         </div>
     )
 }

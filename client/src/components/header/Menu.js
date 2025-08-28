@@ -9,7 +9,7 @@ import NotifyModal from '../NotifyModal.js';
 const Menu = () => {
     const navLinks = [
         { label: 'Home', icon: 'home', path: '/'},
-        { label: 'Message', icon: 'near_me', path: '/message'},
+        { label: 'Message', icon: 'mark_unread_chat_alt', path: '/message'},
         { label: 'Discover', icon: 'explore', path: '/discover'}
     ]
 
@@ -39,11 +39,11 @@ const Menu = () => {
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         <span className="material-icons"
-                        style={{color: notify.data.length > 0 ? 'crimson' : ''}}>
+                        style={{color: notify?.data?.length > 0 ? '#b76e79' : ''}}>
                             favorite
                         </span>
 
-                        <span className="notify_length">{notify.data.length}</span>
+                        <span className="notify_length">{notify?.data?.length || 0}</span>
 
                     </span>
 
@@ -62,7 +62,7 @@ const Menu = () => {
                     </span>
 
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profile</Link>
+                    <Link className="dropdown-item" to={`profile/${auth.user._id}`}>Profile</Link>
 
                     <label htmlFor="theme" className="dropdown-item"
                     onClick={() => dispatch({

@@ -8,7 +8,8 @@ export const MESS_TYPES = {
     GET_MESSAGES: 'GET_MESSAGES',
     UPDATE_MESSAGES: 'UPDATE_MESSAGES',
     DELETE_MESSAGES: 'DELETE_MESSAGES',
-    DELETE_CONVERSATION: 'DELETE_CONVERSATION'
+    DELETE_CONVERSATION: 'DELETE_CONVERSATION',
+    CHECK_ONLINE_OFFLINE: 'CHECK_ONLINE_OFFLINE'
 }
 
 
@@ -89,4 +90,14 @@ export const deleteConversation = ({auth, id}) => async (dispatch) => {
     } catch (err) {
         dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}})
     }
+};
+
+export const checkUsersOnline = (onlineUsers) => async (dispatch, getState) => {
+
+    const ids = await Array.isArray(onlineUsers) ? onlineUsers : onlineUsers?.users || [];
+
+    dispatch({
+        type: MESS_TYPES.CHECK_ONLINE_OFFLINE,
+        payload: ids
+    });
 };

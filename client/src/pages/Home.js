@@ -27,8 +27,9 @@ const Home = () => {
 
     return (
         <div className="home row mx-0">
+
+            <Storytab />
             <div className="col-md-8">
-                <Storytab />
 
                 {
                     homePosts.loading
@@ -41,7 +42,6 @@ const Home = () => {
             </div>
 
             <Footer />
-
 
         </div>
     )

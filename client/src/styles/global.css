@@ -84,6 +84,9 @@ red-300 #fca5a5
   /* -------- Icons---------- */
   @import url("./icons.css");
 
+  /* Create Post */
+  @import url("./status_modal.css");
+
 
   /* --------- Responsiveness ------ */
   @media (max-width: 766px){
@@ -120,3 +123,7 @@ red-300 #fca5a5
     height: 100vh;
     overflow: hidden;
   }
+
+    @media (max-width: 320px){
+
+    }

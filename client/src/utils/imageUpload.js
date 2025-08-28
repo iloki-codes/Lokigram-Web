@@ -2,8 +2,8 @@ export const checkImage = (file) => {
     let err = "";
     if(!file) return err = "File does not exist."
 
-    if(file.size > 1024 * 1024) // 1mb
-    err = "The largest image size is 1mb."
+    if(file.size > 1024 * 1024 * 5) // 5mb
+    err = "The largest image size is 5mb."
 
     if(file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/jpg')
     err = "Image format is incorrect."
@@ -26,11 +26,11 @@ export const imageUpload = async (images) => {
         formData.append("upload_preset", "Lokigram-web");
         formData.append("cloud_name", "loki-codes");
 
-        const res = await fetch("https://api.cloudinary.com/v1_1/loki-codes/upload", {
+        const res = await fetch("https://723616939867417:SNIcbtpEYptGiuOXqkwDQVU3SX4@api.cloudinary.com/v1_1/loki-codes/upload", {
             method: "POST",
-            body: formData
+            body: formData,
+            reportProgress: true
         });
-        // https://res.cloudinary.com/loki-codes/image/upload
 
         const data = await res.json()
         imgArr.push({
@@ -40,3 +40,6 @@ export const imageUpload = async (images) => {
     }
     return imgArr;
 }
+
+//CLOUDINARY_URL=cloudinary://723616939867417:SNIcbtpEYptGiuOXqkwDQVU3SX4@loki-codes
+// https://api.cloudinary.com/v1_1/loki-codes/upload

@@ -5,6 +5,9 @@ export const GLOBALTYPES = {
     THEME: 'THEME',
     STATUS: 'STATUS',
     MODAL: 'MODAL',
+    CALL: 'CALL',
+    ONLINE: 'ONLINE',
+    OFFLINE: 'OFFLINE'
 }
 
 export const EditData = (data, id, post) => {

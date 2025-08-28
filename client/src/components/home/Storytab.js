@@ -10,12 +10,16 @@ const Storytab = () => {
     const dispatch = useDispatch()
 
     return (
-        <div className="status my-3 d-flex absolute top-50">
+        <div className="statuss flex flex-col gap-2 items-center">
             <Avatar src={auth.user.avatar} size="big-avatar" />
 
-            <button className="statusBtn flex-fill"
-            onClick={() => dispatch({ type: GLOBALTYPES.STATUS, payload: true })}>
-                {auth.user.username}, what are you thinking?
+            <button className="hover:[&>span]:block hover:cursor-pointer"
+                onClick={() => dispatch({ type: GLOBALTYPES.STATUS, payload: true })}>
+                <i className='fa fa-plus bg-[#b76e79] p-2 text-[#f7e7ce] rounded-full'>
+                </i>
+                    <span className='hidden bg-none text-[#000]'>
+                        {auth.user.username}, what are you thinking?
+                    </span>
             </button>
         </div>
     )

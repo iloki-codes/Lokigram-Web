@@ -33,11 +33,12 @@ const Login = () => {
     }
 
     return (
-        <div className="auth_page top-10 flex flex-col justify-items-center gap-5 text ">
+        <div className="auth_page top-10 flex flex-col justify-items-center gap-5 text">
 
-            <p className='text-6xl font-extrabold font-mono tracking-widest'>LOKIGRAM</p>
-
-            <img src={smlogo} alt='logo' className='w-40 h-52 fixed top-[40%] right-60'/>
+            <div className='flex flex-row gap-3'>
+                <img src={smlogo} alt='logo' className='w-20 h-30 object-fill'/>
+                <p className='text-6xl font-extrabold font-mono tracking-widest mt-3'>LOKIGRAM</p>
+            </div>
 
             <form onSubmit={handleSubmit}>
 

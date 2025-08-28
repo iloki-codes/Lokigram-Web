@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getDataAPI } from '../../utils/fetchData'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { useNavigate, useParams } from 'react-router-dom'
-import { MESS_TYPES, getConversations } from '../../redux/actions/messageAction'
+import { MESS_TYPES, checkUsersOnline, getConversations } from '../../redux/actions/messageAction.js';
 
 
 const LeftSide = () => {
@@ -20,7 +20,7 @@ const LeftSide = () => {
     const pageEnd = useRef()
     const [page, setPage] = useState(0)
 
-    
+
     const handleSearch = async e => {
         e.preventDefault()
         if(!search) return setSearchUsers([]);
@@ -39,8 +39,8 @@ const LeftSide = () => {
         setSearch('')
         setSearchUsers([])
         dispatch({type: MESS_TYPES.ADD_USER, payload: {...user, text: '', media: []}})
-        dispatch({type: MESS_TYPES.CHECK_ONLINE_OFFLINE, payload: online})
-        return navigate.push(`/message/${user._id}`)
+        dispatch(checkUsersOnline(online))
+        return navigate(`message/${user._id}`)
     }
 
     const isActive = (user) => {
@@ -71,12 +71,18 @@ const LeftSide = () => {
             dispatch(getConversations({auth, page}))
         }
     },[message.resultUsers, page, auth, dispatch])
-    
+
 
     // Check User Online - Offline
     useEffect(() => {
         if(message.firstLoad) {
-            dispatch({type: MESS_TYPES.CHECK_ONLINE_OFFLINE, payload: online})
+
+            dispatch(checkUsersOnline(online));
+
+            // dispatch({
+            //     type: MESS_TYPES.CHECK_ONLINE_OFFLINE,
+            //     payload: online?.users || []
+            // })
         }
     },[online, message.firstLoad, dispatch])
 
@@ -102,7 +108,7 @@ const LeftSide = () => {
                                 </div>
                             ))
                         }
-                        
+
                     </>
                     : <>
                         {
@@ -113,19 +119,19 @@ const LeftSide = () => {
                                         {
                                             user.online
                                             ? <i className="fas fa-circle text-success" />
-                                            : auth.user.following.find(item => 
+                                            : auth.user.following.find(item =>
                                                 item._id === user._id
                                             ) && <i className="fas fa-circle" />
-                                                
+
                                         }
-                                        
+
                                     </User>
                                 </div>
                             ))
                         }
                     </>
                 }
-               
+
                <button ref={pageEnd} style={{opacity: 0}} >Load More</button>
             </div>
         </>

@@ -16,7 +16,7 @@ export const getSuggestions = (token) => async (dispatch) => {
         const res = await getDataAPI("sugeestionsUser", token);
         dispatch({
             type: SUGGSTN.GET_USERS,
-            payload: res.data
+            payload: res
         });
         dispatch({
             type: SUGGSTN.LOADING, payload: false
@@ -25,7 +25,7 @@ export const getSuggestions = (token) => async (dispatch) => {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
-                error: err.response.data.msg
+                error: err.response?.msg
             }
         });
     }

@@ -21,7 +21,7 @@ const spawnNotification = (body, icon, url, title) => {
 }
 
 const SocketClient = () => {
-    const { auth, notify } = useSelector(state => state)
+    const { auth, notify, online, call } = useSelector(state => state)
     const dispatch = useDispatch();
     const audioRef = useRef();
     const socket = useSocket();
@@ -127,7 +127,62 @@ const SocketClient = () => {
         })
 
         return () => socket.off('addMessageToClient')
+    },[socket, dispatch]);
+
+
+    // Check User Online / Offline
+    useEffect(() => {
+        socket.emit('checkUserOnline', auth.user)
+    },[socket, auth.user])
+
+    useEffect(() => {
+        socket.on('checkUserOnlineToMe', data =>{
+            data.forEach(item => {
+                if(!online.includes(item.id)){
+                    dispatch({type: GLOBALTYPES.ONLINE, payload: item.id})
+                }
+            })
+        })
+
+        return () => socket.off('checkUserOnlineToMe')
+    },[socket, dispatch, online])
+
+    useEffect(() => {
+        socket.on('checkUserOnlineToClient', id =>{
+            if(!online.includes(id)){
+                dispatch({type: GLOBALTYPES.ONLINE, payload: id})
+            }
+        })
+
+        return () => socket.off('checkUserOnlineToClient')
+    },[socket, dispatch, online])
+
+    // Check User Offline
+    useEffect(() => {
+        socket.on('CheckUserOffline', id =>{
+            dispatch({type: GLOBALTYPES.OFFLINE, payload: id})
+        })
+
+        return () => socket.off('CheckUserOffline')
     },[socket, dispatch])
+
+
+    // Call User
+    useEffect(() => {
+        socket.on('callUserToClient', data =>{
+            dispatch({type: GLOBALTYPES.CALL, payload: data})
+        })
+
+        return () => socket.off('callUserToClient')
+    },[socket, dispatch])
+
+    useEffect(() => {
+        socket.on('userBusy', data =>{
+            dispatch({type: GLOBALTYPES.ALERT, payload: {error: `${call.username} is busy!`}})
+        })
+
+        return () => socket.off('userBusy')
+    },[socket, dispatch, call]);
 
     return (
         <>

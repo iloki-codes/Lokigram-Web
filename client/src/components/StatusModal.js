@@ -103,14 +103,11 @@ const StatusModal = () => {
         }
     },[status])
 
-
-
-
     return (
         <div className="status_modal">
             <form onSubmit={handleSubmit}>
                 <div className="status_header">
-                    <h5 className="m-0">Create Post</h5>
+                    <h5 className="m-5">Create Post</h5>
                     <span onClick={() => dispatch({
                         type: GLOBALTYPES.STATUS, payload: false
                     })}>
@@ -142,14 +139,14 @@ const StatusModal = () => {
                                         : img.url
                                             ?<>
                                                 {
-                                                    img.url.match(/video/i)
+                                                    img.url.match("/video/i")
                                                     ? videoShow(img.url, theme)
                                                     : imageShow(img.url, theme)
                                                 }
                                             </>
                                             :<>
                                                 {
-                                                    img.type.match(/video/i)
+                                                    img.type.match("/video/i")
                                                     ? videoShow(URL.createObjectURL(img), theme)
                                                     : imageShow(URL.createObjectURL(img), theme)
                                                 }
@@ -192,7 +189,7 @@ const StatusModal = () => {
                 </div>
 
                 <div className="status_footer">
-                    <button className="btn btn-secondary w-100" type="submit">
+                    <button className="bg-[#b76e79] p-2 rounded-sm text-[#f7e7ce] font-bold w-100 hover:scale-105" type="submit">
                         Post
                     </button>
                 </div>

@@ -9,6 +9,9 @@ const initialState = {
 }
 
 const messageReducer = (state = initialState, action={}) => {
+
+    const onlineIds = Array.isArray(action.payload) ? action.payload : [];
+
     switch (action.type){
         case MESS_TYPES.ADD_USER:
             if(state.users.every(item => item._id !== action.payload._id)){
@@ -77,7 +80,7 @@ const messageReducer = (state = initialState, action={}) => {
             return {
                 ...state,
                 users: state.users.map(user =>
-                    action.payload.includes(user._id)
+                    onlineIds.includes(user._id)
                     ? {...user, online: true}
                     : {...user, online: false}
                 )

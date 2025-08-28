@@ -73,21 +73,14 @@ function App() {
 
 
           <Routes>
+
             <Route path="/" element={auth.token ? <Home /> : <Login />} />
+
             <Route path="/register" element={<Register />} />
 
-            <Route path="/:page" element={
-              <PrivateRouter>
-                <PageRender />
-              </PrivateRouter>
-              }
-              />
-            <Route path="/:page/:id" element={
-              <PrivateRouter>
-                <PageRender />
-              </PrivateRouter>
-              }
-            />
+            <Route path="/:page" element={<PrivateRouter element={<PageRender />} />} />
+
+            <Route path="/:page/:id" element={<PrivateRouter element={<PageRender />} />} />
 
           </Routes>
 

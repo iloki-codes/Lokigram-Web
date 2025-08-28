@@ -6,7 +6,7 @@ const Footer = () => {
 
   return (
 
-    <div className='sticky flex flex-row justify-between absolute -bottom-200 w-full h-[5vw] bg-[#f7e7ce] border-t-1 border-[#b76e79]'>
+    <div className='sticky flex flex-row justify-between w-full h-[5vw] bg-[#f7e7ce] border-t-1 border-[#b76e79]'>
         <Link
           to="/"
           onClick={() => window.scrollTo({top: 0})}

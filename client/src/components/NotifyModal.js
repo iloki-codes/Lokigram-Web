@@ -21,7 +21,7 @@ const NotifyModal = () => {
     }
 
     const handleDeleteAll = () => {
-        const newArr = notify.data.filter(item => item.isRead === false)
+        const newArr = notify?.data?.filter(item => item.isRead === false) || [];
         if(newArr.length === 0) return dispatch(deleteAllNotifies(auth.token))
 
         if(window.confirm(`You have ${newArr.length} unread notices. Are you sure you want to delete all?`)){
@@ -34,7 +34,7 @@ const NotifyModal = () => {
             <div className="d-flex justify-content-between align-items-center px-3">
                 <h3>Notification</h3>
                 {
-                    notify.sound
+                    notify?.sound
                     ? <i className="fas fa-bell text-danger"
                     style={{fontSize: '1.2rem', cursor: 'pointer'}}
                     onClick={handleSound} />
@@ -47,13 +47,13 @@ const NotifyModal = () => {
             <hr className="mt-0" />
 
             {
-                notify.data.length === 0 &&
+                notify?.data?.length === 0 &&
                 <img src={NoNotice} alt="NoNotice" className="w-100" />
             }
 
             <div style={{maxHeight: 'calc(100vh - 200px)', overflow: 'auto'}}>
                 {
-                    notify.data.map((msg, index) => (
+                    notify?.data?.map((msg, index) => (
                         <div key={index} className="px-2 mb-3" >
                             <Link to={`${msg.url}`} className="d-flex text-dark align-items-center"
                             onClick={() => handleIsRead(msg)}>
@@ -71,7 +71,7 @@ const NotifyModal = () => {
                                     msg.image &&
                                     <div style={{width: '30px'}}>
                                         {
-                                            msg.image.match(/video/i)
+                                            msg.image.match("/video/i")
                                             ? <video src={msg.image} width="100%" />
                                             : <Avatar src={msg.image} size="medium-avatar" />
                                         }
