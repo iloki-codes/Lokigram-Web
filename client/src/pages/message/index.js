@@ -1,5 +1,6 @@
 import React from 'react'
 import LeftSide from '../../components/message/LeftSide.js';
+import loki from '../../assets/smlogo.png';
 
 const Message = () => {
     return (
@@ -12,9 +13,11 @@ const Message = () => {
                 <div className="d-flex justify-content-center
                 align-items-center flex-column h-100">
 
-                    <i className="fab fa-facebook-messenger text-primary"
-                    style={{fontSize: '5rem'}} />
-                    <h4>Messenger</h4>
+                    < div className='flex flex-row gap-5'>
+                    <img src={loki} alt={loki} className='h-40 w-20 !object-contain' />
+                    <span className="material-icons text-[#b76e79] !text-[50px]">local_post_office</span>
+                    </div>
+                    <h4 className='!text-[#b76e79]'>Lokigram-ChatBox</h4>
 
                 </div>
             </div>

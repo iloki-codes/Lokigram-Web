@@ -47,8 +47,31 @@ red-300 #fca5a5
     background: none;
   }
 
-  img {
+  /* img {
     object-fit: cover;
+  } */
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f7e7ce;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #b76e79;
+    border-radius: 5px;
+    border: 1px solid #f7e7ce;
+
+  }
+
+/* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    filter: blur(10px);
+    transform: scale3d(1.2);
   }
 
   /* -------- AUTH ---------- */

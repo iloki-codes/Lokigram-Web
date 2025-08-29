@@ -40,7 +40,7 @@ const LeftSide = () => {
         setSearchUsers([])
         dispatch({type: MESS_TYPES.ADD_USER, payload: {...user, text: '', media: []}})
         dispatch(checkUsersOnline(online))
-        return navigate(`message/${user._id}`)
+        return navigate(`/message/${user._id}`)
     }
 
     const isActive = (user) => {

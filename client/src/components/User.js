@@ -20,7 +20,7 @@ const UserCard = ({children, user, border, handleClose, setShowFollowers, setSho
                     {user.text}
                 </div>
                 {
-                    user.media.length > 0 && 
+                    user.media.length > 0 &&
                     <div>
                         {user.media.length} <i className="fas fa-image" />
                     </div>
@@ -46,15 +46,15 @@ const UserCard = ({children, user, border, handleClose, setShowFollowers, setSho
             <div>
                 <Link to={`/profile/${user._id}`} onClick={handleCloseAll}
                 className="d-flex align-items-center">
-                    
+
                     <Avatar src={user.avatar} size="big-avatar" />
 
-                    <div className="ml-1" style={{transform: 'translateY(-2px)'}}>
-                        <span className="d-block">{user.username}</span>
-                        
-                        <small style={{opacity: 0.7}}>
+                    <div className="ml-2" style={{transform: 'translateY(-2px)'}}>
+                        <span className="d-block text-[#b76e79] font-bold">{user.username}</span>
+
+                        <small style={{opacity: 0.7, color: "#8170c6ff"}}>
                             {
-                                msg 
+                                msg
                                 ? showMsg(user)
                                 : user.fullname
                             }
@@ -62,7 +62,7 @@ const UserCard = ({children, user, border, handleClose, setShowFollowers, setSho
                     </div>
                 </Link>
             </div>
-            
+
             {children}
         </div>
     )
