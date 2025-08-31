@@ -16,7 +16,7 @@ const Post = () => {
     useEffect(() => {
         dispatch(getPost({detailPost, id, auth}))
 
-        if(detailPost.length > 0){
+        if(detailPost?.length > 0){
             const newArr = detailPost.filter(post => post._id === id)
             setPost(newArr)
         }
@@ -25,7 +25,7 @@ const Post = () => {
     return (
         <div className="posts">
             {
-                post.length === 0 &&
+                post?.length === 0 &&
                 <img src={LoadIcon} alt="loading" className="d-block mx-auto my-4" />
             }
 

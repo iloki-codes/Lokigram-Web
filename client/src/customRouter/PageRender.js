@@ -26,7 +26,7 @@ const PageRender = () => {
             pageName = `${page}`;
         }
         console.log(pageName);
-         
+
     }
 
     return generatePage(pageName);

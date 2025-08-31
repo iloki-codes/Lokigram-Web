@@ -36,7 +36,7 @@ const Login = () => {
         <div className="auth_page top-10 flex flex-col justify-items-center gap-5 text">
 
             <div className='flex flex-row gap-3'>
-                <img src={smlogo} alt='logo' className='w-20 h-30 object-fill'/>
+                <img src={smlogo} alt='logo' className='w-25 h-30'/>
                 <p className='text-6xl font-extrabold font-mono tracking-widest mt-3'>LOKIGRAM</p>
             </div>
 

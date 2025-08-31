@@ -8,6 +8,7 @@ import { isReadNotify, NOTIFY_TYPES, deleteAllNotifies } from '../redux/actions/
 import { useSocket } from '../socketContext.js';
 
 const NotifyModal = () => {
+
     const { auth, notify } = useSelector(state => state)
     const dispatch = useDispatch();
     const socket = useSocket();
@@ -30,7 +31,13 @@ const NotifyModal = () => {
     }
 
     return (
-        <div style={{minWidth: '300px'}}>
+
+        <div className='notify' style={{minWidth: '300px'}}>
+
+            <div className='notify_bg'></div>
+
+            <div className='notify_content'>
+
             <div className="d-flex justify-content-between align-items-center px-3">
                 <h3>Notification</h3>
                 {
@@ -97,6 +104,7 @@ const NotifyModal = () => {
                 Delete All
             </div>
 
+            </div>
         </div>
     )
 }

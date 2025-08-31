@@ -5,6 +5,7 @@ import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { updateProfileUser } from '../../redux/actions/profileAction'
 
 const EditProfile = ({setOnEdit}) => {
+
     const initState = {
         fullname: '', mobile: '', address: '', website: '', story: '', gender: ''
     }
@@ -44,6 +45,11 @@ const EditProfile = ({setOnEdit}) => {
 
     return (
         <div className="edit_profile">
+
+            {/* <div className='edit_profile_bg'></div>
+
+            <div className='edit_profile_content'> */}
+
             <button className="btn btn-danger btn_close"
             onClick={() => setOnEdit(false)}>
                 Close
@@ -51,7 +57,7 @@ const EditProfile = ({setOnEdit}) => {
 
             <form onSubmit={handleSubmit}>
                 <div className="info_avatar">
-                    <img src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar} 
+                    <img src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
                     alt="avatar" style={{filter: theme ? 'invert(1)' : 'invert(0)'}} />
                     <span>
                         <i className="fas fa-camera" />
@@ -62,6 +68,7 @@ const EditProfile = ({setOnEdit}) => {
                 </div>
 
                 <div className="form-group">
+
                     <label htmlFor="fullname">Full Name</label>
                     <div className="position-relative">
                         <input type="text" className="form-control" id="fullname"
@@ -112,8 +119,10 @@ const EditProfile = ({setOnEdit}) => {
                     </select>
                 </div>
 
-                <button className="btn btn-info w-100" type="submit">Save</button>
+                <button className="btn btn-dark w-100" type="submit">Save</button>
             </form>
+
+            {/* </div> */}
         </div>
     )
 }

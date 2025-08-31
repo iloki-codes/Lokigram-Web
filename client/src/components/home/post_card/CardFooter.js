@@ -4,7 +4,7 @@ import Send from '../../../assets/send.svg';
 import LikeButton from '../../LikeBtn.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { likePost, unLikePost, savePost, unSavePost } from '../../../redux/actions/postAction.js';
-// import ShareModal from '../../ShareModal'
+import ShareModal from '../../ShareModal.js';
 import { BASE_URL } from '../../../utils/fetchData.js';
 import { useSocket } from '../../../socketContext.js';
 
@@ -74,9 +74,12 @@ const CardFooter = ({post}) => {
     }
 
     return (
-        <div className="card_footer">
+        <div className="card_footer border-b-1 border-[#b76e79]">
+
             <div className="card_icon_menu">
+
                 <div>
+
                     <LikeButton
                     isLike={isLike}
                     handleLike={handleLike}
@@ -88,6 +91,7 @@ const CardFooter = ({post}) => {
                     </Link>
 
                     <img src={Send} alt="Send" onClick={() => setIsShare(!isShare)} />
+
                 </div>
 
                 {
@@ -103,17 +107,17 @@ const CardFooter = ({post}) => {
 
             <div className="d-flex justify-content-between">
                 <h6 style={{padding: '0 25px', cursor: 'pointer'}}>
-                    {post.likes.length} likes
+                    {post?.likes?.length} likes
                 </h6>
 
                 <h6 style={{padding: '0 25px', cursor: 'pointer'}}>
-                    {post.comments.length} comments
+                    {post?.comments?.length} comments
                 </h6>
             </div>
 
-            {/* {
+            {
                 isShare && <ShareModal url={`${BASE_URL}/post/${post._id}`} theme={theme} />
-            } */}
+            }
         </div>
     )
 }

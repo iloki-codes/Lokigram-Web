@@ -30,7 +30,7 @@ const Info = ({id, auth, profile, dispatch}) => {
             dispatch({ type: GLOBALTYPES.MODAL, payload: false})
         }
     },[showFollowers, showFollowing, onEdit, dispatch])
-    
+
 
     return (
         <div className="info">
@@ -44,15 +44,15 @@ const Info = ({id, auth, profile, dispatch}) => {
                                 <h2>{user.username}</h2>
                                 {
                                     user._id === auth.user._id
-                                    ?  <button className="btn btn-outline-info"
+                                    ?  <button className="btn !border-1 !border-[#b76e79]"
                                     onClick={() => setOnEdit(true)}>
                                         Edit Profile
                                     </button>
-                                    
+
                                     : <FollowBtn user={user} />
                                 }
-                               
-                                
+
+
                             </div>
 
                             <div className="follow_btn">
@@ -79,16 +79,16 @@ const Info = ({id, auth, profile, dispatch}) => {
 
                         {
                             showFollowers &&
-                            <Followers 
-                            users={user.followers} 
-                            setShowFollowers={setShowFollowers} 
+                            <Followers
+                            users={user.followers}
+                            setShowFollowers={setShowFollowers}
                             />
                         }
                         {
                             showFollowing &&
-                            <Following 
-                            users={user.following} 
-                            setShowFollowing={setShowFollowing} 
+                            <Following
+                            users={user.following}
+                            setShowFollowing={setShowFollowing}
                             />
                         }
                     </div>

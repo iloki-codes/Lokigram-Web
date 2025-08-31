@@ -72,13 +72,18 @@ const CommentCard = ({children, comment, post, commentId}) => {
     }
 
     return (
-        <div className="comment_card mt-2" style={styleCard}>
-            <Link to={`/profile/${comment.user._id}`} className="d-flex text-dark">
-                <Avatar src={comment.user.avatar} size="small-avatar" />
-                <h6 className="mx-1">{comment.user.username}</h6>
-            </Link>
+        <div className="comment_card mt-2 relative overflow-hidden" style={styleCard}>
+
+
+            <div className='comment_bg'></div>
 
             <div className="comment_content">
+
+            <Link to={`/profile/${comment.user._id}`} className="flex flex-col justify-start !no-underline z-1 text-dark">
+                <Avatar src={comment.user.avatar} size="small-avatar" />
+                <h6 className="mr-3">{comment.user.username}</h6>
+            </Link>
+
                 <div className="flex-fill"
                 style={{
                     filter: theme ? 'invert(1)' : 'invert(0)',

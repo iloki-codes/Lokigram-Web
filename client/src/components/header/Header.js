@@ -19,7 +19,7 @@ const Header = () => {
                     to="/"
                     onClick={() => window.scrollTo({top: 0})}
                     className='flex flex-row gap-4 m-2 !no-underline'>
-                    <img src={loki} alt={loki} className='h-10 w-5'/>
+                    <img src={loki} alt={loki} className='h-15 w-10'/>
                     <span className="text-4xl font-bold text-[#b76e79]">lokigram</span>
                 </Link>
 

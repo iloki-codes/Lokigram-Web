@@ -23,6 +23,7 @@ const Menu = () => {
 
     return (
         <div className="menu">
+
             <ul className="navbar-nav flex-row">
                 {
                     navLinks.map((link, index) => (
@@ -35,6 +36,7 @@ const Menu = () => {
                 }
 
                 <li className="nav-item dropdown" style={{opacity: 1}} >
+
                     <span className="nav-link position-relative" id="navbarDropdown"
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
@@ -56,29 +58,36 @@ const Menu = () => {
 
 
                 <li className="nav-item dropdown" style={{opacity: 1}} >
+
                     <span className="nav-link dropdown-toggle" id="navbarDropdown"
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <Avatar src={auth.user.avatar} size="medium-avatar" />
                     </span>
 
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link className="dropdown-item" to={`profile/${auth.user._id}`}>Profile</Link>
+                    <div className="dropdown-menu relative overflow-hidden" aria-labelledby="navbarDropdown">
 
-                    <label htmlFor="theme" className="dropdown-item"
-                    onClick={() => dispatch({
-                        type: GLOBALTYPES.THEME, payload: !theme
-                    })}>
+                        <div className='menu_drop_bg'></div>
 
+                        <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profile</Link>
+
+                        <label htmlFor="theme" className="dropdown-item"
+                            onClick={() => dispatch({
+                                type: GLOBALTYPES.THEME,
+                                payload: !theme
+                            })}
+                        >
                         {theme ? 'Light mode' : 'Dark mode'}
-                    </label>
+                        </label>
 
-                    <div className="dropdown-divider"></div>
-                    <Link className="dropdown-item" to="/"
-                    onClick={() => dispatch(logout())}>
-                        Logout
-                    </Link>
-                </div>
-            </li>
+                        <div className="dropdown-divider"></div>
+                        <Link className="dropdown-item" to="/"
+                            onClick={() => dispatch(logout())}>
+                                Logout
+                        </Link>
+
+                    </div>
+
+                </li>
         </ul>
     </div>
 

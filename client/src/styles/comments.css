@@ -24,8 +24,18 @@
 .comment_display{
     padding: 10px 25px;
 }
+
+.comment_card .comment_bg {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.15);
+    inset: 0;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
+}
+
 .comment_card .comment_content{
-    background: #eee;
     padding: 7px;
     border-radius: 10px;
     border-top-left-radius: 0;
