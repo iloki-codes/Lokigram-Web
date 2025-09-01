@@ -23,7 +23,7 @@ const notifyReducer = (state = initialState, action={}) => {
             return {
                 ...state,
                 data: state.data.filter(item => (
-                    item.id !== action.payload.id || item.url !== action.payload.url
+                    item.id !== action.payload.id && item.url !== action.payload.url
                 ))
             };
         case NOTIFY_TYPES.UPDATE_NOTIFY:

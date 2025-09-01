@@ -20,8 +20,8 @@ class APIfeatures {
 const messageCtrl = {
     createMessage: async (req, res) => {
         try {
-            const { sender, recipient, text, call } = req.body;
-            const { media: images } = req.files || [];
+            const { sender, recipient, text, call, media: images } = req.body;
+            // const { media: images } = req.files || [];
 
             if(!recipient || (!text.trim() && media.length === 0 && !call)) return;
 
@@ -33,7 +33,7 @@ const messageCtrl = {
             }, {
                 recipients: [sender, recipient],
                 text,
-                images: images?.path,
+                images,                                 //: images?.path,
                 call
             }, {
                 new: true,
@@ -46,7 +46,7 @@ const messageCtrl = {
                 call,
                 recipient,
                 text,
-                images: images?.path,
+                images                                  //: images?.path,
             })
 
             await newMessage.save();

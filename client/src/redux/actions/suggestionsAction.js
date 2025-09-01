@@ -1,7 +1,7 @@
 ﻿import { GLOBALTYPES } from "./globalTypes.js";
 import { getDataAPI } from "../../utils/fetchData.js";
 
-export const SUGGSTN = {
+export const SUGGES_TYPES = {
     LOADING: 'LOADING_SUGGSTN',
     GET_USERS: 'GET_USER-SUGGSTN'
 };
@@ -9,23 +9,23 @@ export const SUGGSTN = {
 export const getSuggestions = (token) => async (dispatch) => {
     try {
         dispatch({
-            type: SUGGSTN.LOADING,
+            type: SUGGES_TYPES.LOADING,
             payload: true
         })
 
-        const res = await getDataAPI("sugeestionsUser", token);
+        const res = await getDataAPI("suggestionsUser", token);
         dispatch({
-            type: SUGGSTN.GET_USERS,
+            type: SUGGES_TYPES.GET_USERS,
             payload: res
         });
         dispatch({
-            type: SUGGSTN.LOADING, payload: false
+            type: SUGGES_TYPES.LOADING, payload: false
         });
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
-                error: err.response?.msg
+                error: err?.response?.msg
             }
         });
     }

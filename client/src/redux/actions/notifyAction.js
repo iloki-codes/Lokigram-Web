@@ -1,6 +1,5 @@
 import { GLOBALTYPES } from './globalTypes.js';
 import { postDataAPI, deleteDataAPI, getDataAPI, patchDataAPI } from '../../utils/fetchData.js';
-// import { useSocket } from '../../socketContext.js';
 
 export const NOTIFY_TYPES = {
     GET_NOTIFIES: 'GET_NOTIFIES',
@@ -11,57 +10,114 @@ export const NOTIFY_TYPES = {
     DELETE_ALL_NOTIFIES: 'DELETE_ALL_NOTIFIES'
 }
 
-export const createNotify = ({msg, auth, socket}) => async (dispatch) => {
+// export const createNotify = ({msg, auth, socket}) => async (dispatch) => {
 
+//     try {
+//         const res = await postDataAPI('notify', msg, auth.token);
+
+//         socket.emit('createNotify', {
+//             ...res?.data?.notify,
+//             user: {
+//                 username: auth?.user?.username,
+//                 avatar: auth?.user?.avatar
+//             }
+//         })
+//         dispatch({
+//             type: NOTIFY_TYPES.CREATE_NOTIFY,
+//             payload: res?.data?.notify
+//         })
+//     } catch (err) {
+//         dispatch({
+//             type: GLOBALTYPES.ALERT,
+//             payload: {
+//                 error: err?.response?.msg
+//             }})
+//     }
+// }
+
+// export const removeNotify = ({msg, auth, socket}) => async (dispatch) => {
+
+//     try {
+//         const res = await deleteDataAPI(`notify/${msg.id}?url=${msg.url}`, auth.token)
+
+//         socket.emit('removeNotify', msg);
+
+//         dispatch({
+//             type: NOTIFY_TYPES.REMOVE_NOTIFY,
+//             payload: res?.data
+//         })
+//     } catch (err) {
+//         dispatch({
+//             type: GLOBALTYPES.ALERT,
+//             payload: {error: err?.response?.msg
+//             }})
+//     }
+// }
+
+
+
+export const createNotify = ({ msg, auth, socket }) => async (dispatch) => {
     try {
         const res = await postDataAPI('notify', msg, auth.token);
 
-        socket.emit('createNotify', {
-            ...res.notify,
+        dispatch({
+            type: GLOBALTYPES.NOTIFY,
+            payload: { ...res?.data?.notify, user: auth?.user }
+        });
+
+        // send real-time notify
+        socket?.emit('createNotify', {
+            ...msg,
             user: {
+                id: auth.user._id,
                 username: auth.user.username,
                 avatar: auth.user.avatar
             }
-        })
-        dispatch({
-            type: NOTIFY_TYPES.CREATE_NOTIFY,
-            payload: res
-        })
+        });
+
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: {
-                error: err.response?.msg
-            }})
+            payload: { error: err?.response?.data?.msg }
+        });
     }
-}
+};
 
-export const removeNotify = ({msg, auth, socket}) => async (dispatch) => {
-
+// -------------------- REMOVE NOTIFY --------------------
+export const removeNotify = ({ msg, auth, socket }) => async (dispatch) => {
     try {
-        const res = await deleteDataAPI(`notify/${msg.id}?url=${msg.url}`, auth.token)
+        await deleteDataAPI(`notify/${msg.id}?url=${msg.url}`, auth.token);
 
-        socket.emit('removeNotify', msg);
-
+        // remove from redux state
         dispatch({
-            type: NOTIFY_TYPES.REMOVE_NOTIFY,
-            payload: res
-        })
+            type: GLOBALTYPES.REMOVE_NOTIFY,
+            payload: msg
+        });
+
+        // send real-time remove
+        socket?.emit('removeNotify', {
+            ...msg,
+            user: {
+                id: auth.user._id,
+                username: auth.user.username
+            }
+        });
+
     } catch (err) {
         dispatch({
             type: GLOBALTYPES.ALERT,
-            payload: {error: err.response?.msg
-            }})
+            payload: { error: err?.response?.data?.msg }
+        });
     }
-}
+};
 
 export const getNotifies = (token) => async (dispatch) => {
     try {
         const res = await getDataAPI('notifies', token)
 
-        dispatch({ type: NOTIFY_TYPES.GET_NOTIFIES, payload: res.notifies })
+        dispatch({ type: NOTIFY_TYPES.GET_NOTIFIES, payload: res?.data?.notifies })
     } catch (err) {
-        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err.response?.msg}})
+        dispatch({type: GLOBALTYPES.ALERT, payload: {error: err?.response?.data?.msg}})
     }
 }
 
@@ -88,7 +144,7 @@ export const deleteAllNotifies = (token) => async (dispatch) => {
         dispatch({
             type: GLOBALTYPES.ALERT,
             payload: {
-                error: err.response?.msg
+                error: err?.response?.msg
             }})
     }
 }

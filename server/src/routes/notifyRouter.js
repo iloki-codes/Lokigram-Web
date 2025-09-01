@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const {auth} = require('../middleware/auth.js');
 const notifyCtrl = require('../controllers/notifyCtrl.js');
-const uploads = require('../middleware/multer.js');
+// const uploads = require('../middleware/multer.js');
 
-router.post('/notify', auth, uploads, notifyCtrl.createNotify);
+router.post('/notify', auth, notifyCtrl.createNotify); // uploads
 
 router.delete('/notify/:id', auth, notifyCtrl.removeNotify);
 

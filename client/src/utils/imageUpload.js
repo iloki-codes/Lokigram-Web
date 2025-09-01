@@ -13,7 +13,11 @@ export const checkImage = (file) => {
 
 
 export const imageUpload = async (images) => {
+
+    const cloudinary = process.env.REACT_APP_CLOUDINARY_URL;
+
     let imgArr = [];
+
     for(const item of images){
         const formData = new FormData();
 
@@ -26,20 +30,22 @@ export const imageUpload = async (images) => {
         formData.append("upload_preset", "Lokigram-web");
         formData.append("cloud_name", "loki-codes");
 
-        const res = await fetch("https://723616939867417:SNIcbtpEYptGiuOXqkwDQVU3SX4@api.cloudinary.com/v1_1/loki-codes/upload", {
+        const res = await fetch("https://api.cloudinary.com/v1_1/loki-codes/upload", {
             method: "POST",
             body: formData,
             reportProgress: true
         });
 
-        const data = await res.json()
+        const data = await res.json();
+
         imgArr.push({
-            public_id: data.public_id,
-            url: data.secure_url
+            public_id: data?.public_id,
+            url: data?.secure_url
         });
+
+        console.log(data?.secure_url);
     }
     return imgArr;
 }
 
-//CLOUDINARY_URL=cloudinary://723616939867417:SNIcbtpEYptGiuOXqkwDQVU3SX4@loki-codes
 // https://api.cloudinary.com/v1_1/loki-codes/upload

@@ -14,13 +14,13 @@ const Info = ({id, auth, profile, dispatch}) => {
     const [showFollowing, setShowFollowing] = useState(false)
 
     useEffect(() => {
-        if(id === auth.user._id){
-            setUserData([auth.user])
+        if(id === auth?.user?._id){
+            setUserData([auth?.user])
         }else{
-            const newData = profile.users.filter(user => user._id === id)
+            const newData = profile?.users?.filter(user => user?._id === id)
             setUserData(newData)
         }
-    }, [id, auth, dispatch, profile.users])
+    }, [id, auth, dispatch, profile?.users])
 
 
     useEffect(() => {
@@ -35,15 +35,15 @@ const Info = ({id, auth, profile, dispatch}) => {
     return (
         <div className="info">
             {
-                userData.map(user => (
-                    <div className="info_container" key={user._id}>
-                        <Avatar src={user.avatar} size="supper-avatar" />
+                userData?.map(user => (
+                    <div className="info_container" key={user?._id}>
+                        <Avatar src={user?.avatar} size="supper-avatar" />
 
                         <div className="info_content">
                             <div className="info_content_title">
-                                <h2>{user.username}</h2>
+                                <h2>{user?.username}</h2>
                                 {
-                                    user._id === auth.user._id
+                                    user?._id === auth?.user?._id
                                     ?  <button className="btn !border-1 !border-[#b76e79]"
                                     onClick={() => setOnEdit(true)}>
                                         Edit Profile
@@ -57,18 +57,18 @@ const Info = ({id, auth, profile, dispatch}) => {
 
                             <div className="follow_btn">
                                 <span className="mr-4" onClick={() => setShowFollowers(true)}>
-                                    {user.followers.length} Followers
+                                    {user?.followers?.length} Followers
                                 </span>
                                 <span className="ml-4" onClick={() => setShowFollowing(true)}>
-                                    {user.following.length} Following
+                                    {user?.following?.length} Following
                                 </span>
                             </div>
 
-                            <h6>{user.fullname} <span className="text-danger">{user.mobile}</span></h6>
-                            <p className="m-0">{user.address}</p>
-                            <h6 className="m-0">{user.email}</h6>
-                            <a href={user.website} target="_blank" rel="noreferrer">
-                                {user.website}
+                            <h6>{user?.fullname} <span className="text-danger">{user?.mobile}</span></h6>
+                            <p className="m-0">{user?.address}</p>
+                            <h6 className="m-0">{user?.email}</h6>
+                            <a href={user?.website} target="_blank" rel="noreferrer">
+                                {user?.website}
                             </a>
                             <p>{user.story}</p>
                         </div>
@@ -80,14 +80,14 @@ const Info = ({id, auth, profile, dispatch}) => {
                         {
                             showFollowers &&
                             <Followers
-                            users={user.followers}
+                            users={user?.followers}
                             setShowFollowers={setShowFollowers}
                             />
                         }
                         {
                             showFollowing &&
                             <Following
-                            users={user.following}
+                            users={user?.following}
                             setShowFollowing={setShowFollowing}
                             />
                         }

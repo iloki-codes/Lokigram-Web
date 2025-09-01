@@ -1,13 +1,18 @@
 import { combineReducers } from 'redux';
-import auth from './authReducer.js';
 import alert from './alertReducer.js';
-import theme from './themeReducer.js';
-import profile from './profileReducer.js';
-import homePosts from './postReducer.js';
-import notify from './notifyReducer.js';
+import auth from './authReducer.js';
+import call from './callReducer.js';
+import detailPost from './detailPostReducer.js';
+import discover from './discoverReducer.js';
 import message from './messageReducer.js';
-import status from './storyReducer.js';
 import modal from './modalReducer.js';
+import notify from './notifyReducer.js';
+import online from './onlineReducer.js';
+import homePosts from './postReducer.js';
+import profile from './profileReducer.js';
+import status from './storyReducer.js';
+import suggestions from './suggestionsReducer.js';
+import theme from './themeReducer.js';
 
 export default combineReducers({
     auth,
@@ -19,4 +24,9 @@ export default combineReducers({
     notify,
     modal,
     message,
+    detailPost,
+    discover,
+    suggestions,
+    online,
+    call
 });

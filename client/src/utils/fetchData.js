@@ -10,9 +10,14 @@ export const getDataAPI = async (url, token) => {
 }
 
 export const postDataAPI = async (url, post, token) => {
+    console.log("Post payload:", post);
     const res = await axios.post(`http://localhost:5000/api/v1/${url}`, post, {
-        headers: { Authorization: token}
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        }
     })
+    console.log(res);
     return res;
 }
 

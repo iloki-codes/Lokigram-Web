@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import PostThumb from '../PostThumb'
+import PostThumb from '../PostThumb.js';
 import LoadIcon from '../../assets/loading.gif'
 import LoadMoreBtn from '../LoadMoreBtn.js';
-import { getDataAPI } from '../../utils/fetchData'
-import { PROFILE_TYPES } from '../../redux/actions/profileAction'
+import { getDataAPI } from '../../utils/fetchData.js';
+import { PROFILE_TYPES } from '../../redux/actions/profileAction.js';
 
 const Posts = ({auth, id, dispatch, profile}) => {
 
@@ -31,6 +31,7 @@ const Posts = ({auth, id, dispatch, profile}) => {
     }
 
     return (
+
         <div>
             <PostThumb posts={posts} result={result} />
 

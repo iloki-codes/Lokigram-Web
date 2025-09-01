@@ -11,7 +11,8 @@ import { useParams } from 'react-router-dom';
 
 
 const Profile = () => {
-    const { profile, auth } = useSelector(state => state)
+
+    const { profile, auth } = useSelector(state => state) //
     const dispatch = useDispatch()
 
     const { id } = useParams()
@@ -21,7 +22,7 @@ const Profile = () => {
         if(profile?.ids?.every(item => item !== id)){
             dispatch(getProfileUsers({id, auth}))
         }
-    },[id, auth, dispatch, profile.ids])
+    },[id, auth, dispatch, profile?.ids])
 
     return (
         <div className="profile">
@@ -33,7 +34,7 @@ const Profile = () => {
             <Info auth={auth} profile={profile} dispatch={dispatch} id={id} />
 
             {
-                auth.user._id === id &&
+                auth?.user?._id === id &&
                 <div className="profile_tab">
                     <button className={saveTab ? '' : 'active'} onClick={() => setSaveTab(false)}>Posts</button>
                     <button className={saveTab ? 'active' : ''} onClick={() => setSaveTab(true)}>Saved</button>

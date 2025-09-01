@@ -9,6 +9,7 @@ const initialState = {
 }
 
 const postReducer = (state = initialState, action={}) => {
+
     switch (action.type){
         case POST_TYPES.CREATE_POST:
             return {
@@ -30,12 +31,12 @@ const postReducer = (state = initialState, action={}) => {
         case POST_TYPES.UPDATE_POST:
             return {
                 ...state,
-                posts: EditData(state.posts, action.payload._id, action.payload)
+                posts: EditData(state?.posts, action.payload._id, action.payload)
             };
         case POST_TYPES.DELETE_POST:
             return {
                 ...state,
-                posts: DeleteData(state.posts, action.payload._id)
+                posts: DeleteData(state?.posts, action.payload._id)
             };
         default:
             return state;

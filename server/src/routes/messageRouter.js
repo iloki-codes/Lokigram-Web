@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const messageCtrl = require('../controllers/messageCtrl.js');
 const {auth} = require('../middleware/auth.js');
-const uploads = require('../middleware/multer.js');
+// const uploads = require('../middleware/multer.js');
 
-router.post('/message', auth, uploads, messageCtrl.createMessage)
+router.post('/message', auth, messageCtrl.createMessage)    // uploads
 
 router.get('/conversations', auth, messageCtrl.getConversations)
 

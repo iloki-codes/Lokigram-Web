@@ -3,8 +3,8 @@ const Notifies = require('../models/notify.schema.js');
 const notifyCtrl = {
     createNotify: async (req, res) => {
         try {
-            const { id, recipients, url, text, content } = req.body;
-            const { images } = req.file || "";
+            const { id, recipients, url, text, content, images } = req.body;
+            // const { images } = req.file || "";
 
             if(recipients.includes(req.user._id.toString())) return;
 
@@ -14,7 +14,7 @@ const notifyCtrl = {
                 url,
                 text,
                 content,
-                images: images?.path,
+                images,                             //: images?.path,
                 user: req.user._id
             })
 

@@ -17,12 +17,13 @@ const Post = () => {
         dispatch(getPost({detailPost, id, auth}))
 
         if(detailPost?.length > 0){
-            const newArr = detailPost.filter(post => post._id === id)
+            const newArr = detailPost?.filter(post => post?._id === id)
             setPost(newArr)
         }
     },[detailPost, dispatch, id, auth])
 
     return (
+
         <div className="posts">
             {
                 post?.length === 0 &&
@@ -30,8 +31,8 @@ const Post = () => {
             }
 
             {
-                post.map(item => (
-                    <PostCard key={item._id} post={item} />
+                post?.map(item => (
+                    <PostCard key={item?._id} post={item} />
                 ))
             }
         </div>

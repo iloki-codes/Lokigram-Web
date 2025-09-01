@@ -7,6 +7,7 @@ import { imageShow, videoShow } from '../utils/mediaShow.js';
 import { useSocket } from '../socketContext.js';
 
 const StatusModal = () => {
+
     const { auth, theme, status } = useSelector(state => state)
     const dispatch = useDispatch();
     const socket = useSocket();
@@ -40,7 +41,7 @@ const StatusModal = () => {
 
     const deleteImages = (index) => {
         const newArr = [...images]
-        newArr.splice(index, 1)
+        newArr?.splice(index, 1)
         setImages(newArr)
     }
 
@@ -78,7 +79,7 @@ const StatusModal = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(images.length === 0)
+        if(images?.length === 0)
         return dispatch({
             type: GLOBALTYPES.ALERT, payload: {error: "Please add your photo."}
         })
@@ -132,21 +133,21 @@ const StatusModal = () => {
 
                     <div className="show_images">
                         {
-                            images.map((img, index) => (
+                            images?.map((img, index) => (
                                 <div key={index} id="file_img">
                                     {
-                                        img.camera ? imageShow(img.camera, theme)
+                                        img?.camera ? imageShow(img?.camera, theme)
                                         : img.url
                                             ?<>
                                                 {
-                                                    img.url.match("/video/i")
-                                                    ? videoShow(img.url, theme)
-                                                    : imageShow(img.url, theme)
+                                                    img?.url?.match(/video/i)
+                                                    ? videoShow(img?.url, theme)
+                                                    : imageShow(img?.url, theme)
                                                 }
                                             </>
                                             :<>
                                                 {
-                                                    img.type.match("/video/i")
+                                                    img?.type?.match(/video/i)
                                                     ? videoShow(URL.createObjectURL(img), theme)
                                                     : imageShow(URL.createObjectURL(img), theme)
                                                 }

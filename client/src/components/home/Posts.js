@@ -9,6 +9,7 @@ import { POST_TYPES } from '../../redux/actions/postAction.js';
 
 
 const Posts = () => {
+
     const { homePosts, auth, theme } = useSelector(state => state)
     const dispatch = useDispatch();
 

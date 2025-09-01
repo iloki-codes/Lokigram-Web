@@ -20,15 +20,15 @@ class APIfeatures {
 const postCtrl = {
     createPost: async (req, res) => {
         try {
-            const { content } = req.body;
-            const images = req.files || [];
+            const { content, images } = req.body;
+            // const images = req.files || [];
 
             if(!content) return res.status(400).json({msg: "Please write something!"});
             if(images.length === 0) return res.status(400).json({msg: "Please add a photo."});
 
             const newPost = new Posts({
                 content,
-                images: images?.path,
+                images,                                  //: images?.path,
                 user: req.user._id
             })
             await newPost.save();
@@ -77,7 +77,7 @@ const postCtrl = {
 
             const post = await Posts.findOneAndUpdate({_id: req.params.id}, {
                 content,
-                images: images?.path
+                images                          //: images?.path
             }).populate("user likes", "avatar username fullname")
             .populate({
                 path: "comments",
@@ -92,7 +92,7 @@ const postCtrl = {
                 newPost: {
                     ...post._doc,
                     content,
-                    images: images?.path
+                    images                          //: images?.path
                 }
             })
         } catch (err) {

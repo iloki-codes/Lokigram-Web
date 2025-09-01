@@ -22,7 +22,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
     origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
     credentials: true
 }));
 app.use(cookieParser());

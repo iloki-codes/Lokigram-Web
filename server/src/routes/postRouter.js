@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const postCtrl = require('../controllers/postCtrl.js');
 const {auth} = require('../middleware/auth.js');
-const uploads = require('../middleware/multer.js');
+// const uploads = require('../middleware/multer.js');
 
 router.route('/posts')
-    .post(auth, uploads, postCtrl.createPost)
+    .post(auth, postCtrl.createPost)  // uploads
     .get(auth, postCtrl.getPosts)
 
 router.route('/post/:id')
-    .patch(auth, uploads, postCtrl.updatePost)
+    .patch(auth, postCtrl.updatePost) // uploads
     .get(auth, postCtrl.getPost)
     .delete(auth, postCtrl.deletePost)
 
