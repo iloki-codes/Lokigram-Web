@@ -37,13 +37,17 @@ const CardHeader = ({post}) => {
     }
 
     return (
-        <div className="card_header">
-            <div className="d-flex">
+
+        <div className="card_header d-flex justify-content-between align-items-center">
+
+            <div className="d-flex align-items-center">
+
                 <Avatar src={post?.user?.avatar} size="big-avatar" />
 
-                <div className="card_name">
+                <div className="card_name ms-2">
+
                     <h6 className="m-0">
-                        <Link to={`/profile/${post.user._id}`} className="text-dark">
+                        <Link to={`/profile/${post.user._id}`} className="text-dark text-decoration-none">
                             {post?.user?.username}
                         </Link>
                     </h6>
@@ -54,25 +58,32 @@ const CardHeader = ({post}) => {
             </div>
 
             <div className="nav-item dropdown">
-                <span className="material-icons" id="moreLink" data-toggle="dropdown">
+
+                <span
+                    className="material-icons"
+                    id="moreLink"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
                     more_horiz
                 </span>
 
-                <div className="dropdown-menu">
+                <div className="dropdown-menu dropdown-menu-end" aria-labelledby="moreLink">
                     {
                         auth?.user?._id === post?.user?._id &&
-                        <>
+                        (<>
                             <div className="dropdown-item" onClick={handleEditPost}>
-                                <span className="material-icons">create</span> Edit Post
+                                <span className="material-icons me-2">create</span> Edit Post
                             </div>
                             <div className="dropdown-item" onClick={handleDeletePost} >
-                                <span className="material-icons">delete_outline</span> Remove Post
+                                <span className="material-icons me-2">delete_outline</span> Remove Post
                             </div>
-                        </>
+                            <hr className="dropdown-divider" />
+                        </>)
                     }
 
                     <div className="dropdown-item" onClick={handleCopyLink}>
-                        <span className="material-icons">content_copy</span> Copy Link
+                        <span className="material-icons me-2">content_copy</span> Copy Link
                     </div>
                 </div>
             </div>

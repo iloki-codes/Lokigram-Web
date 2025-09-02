@@ -17,8 +17,17 @@ const Carousel = ({images, id}) => {
             <ol className="carousel-indicators" style={{zIndex: 1}}>
                 {
                     images?.map((img, index) => (
-                        <li key={index} data-bs-target={`#image${id}`}
-                        data-bs-slide-to={index} className={isActive(index)} />
+                        // <li>
+                            <li
+                            key={index}
+                            role='button'
+                            data-bs-target={`#image${id}`}
+                            data-bs-slide-to={index}
+                            aria-current={index === 0 ? "true" : undefined}
+                            aria-label={`Slide ${index + 1}`}
+                            className={isActive(index)}
+                        ></li>
+                        // </li>
                     ))
                 }
 
@@ -60,17 +69,26 @@ const Carousel = ({images, id}) => {
                 images?.length > 1 &&
 
                 <>
-                    <a className="carousel-control-prev" href={`#image${id}`} role="button" data-bs-slide="prev"
-                    style={{width: '5%'}}>
+                    <button
+                        className="carousel-control-prev"
+                        type='button'
+                        data-bs-target={`#image${id}`}
+                        data-bs-slide="prev"
+                        style={{width: '5%'}}
+                    >
                         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span className="sr-only">Previous</span>
-                    </a>
+                    </button>
 
-                    <a className="carousel-control-next" href={`#image${id}`} role="button" data-bs-slide="next"
-                    style={{width: '5%'}}>
+                    <button
+                        className="carousel-control-next"
+                        data-bs-target={`#image${id}`}
+                        data-bs-slide="next"
+                        style={{width: '5%'}}
+                    >
                         <span className="carousel-control-next-icon" aria-hidden="true"></span>
                         <span className="sr-only">Next</span>
-                    </a>
+                    </button>
                 </>
             }
 

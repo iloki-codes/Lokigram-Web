@@ -25,8 +25,8 @@ export default combineReducers({
     modal,
     message,
     detailPost,
-    discover,
     suggestions,
     online,
-    call
+    call,
+    discover
 });

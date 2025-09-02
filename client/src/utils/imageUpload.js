@@ -14,7 +14,7 @@ export const checkImage = (file) => {
 
 export const imageUpload = async (images) => {
 
-    const cloudinary = process.env.REACT_APP_CLOUDINARY_URL;
+    // const cloudinary = process.env.REACT_APP_CLOUDINARY_URL;
 
     let imgArr = [];
 
