@@ -6,7 +6,10 @@ const notifyCtrl = {
             const { id, recipients, url, text, content, images } = req.body;
             // const { images } = req.file || "";
 
-            if(recipients.includes(req.user._id.toString())) return;
+            if (!recipients || recipients.length === 0) return;
+
+            if(recipients.some(r => r.toString() === req.user._id.toString())) return;
+            //    .includes(req.user._id.toString())) return;
 
             const notify = new Notifies({
                 id,
@@ -28,8 +31,8 @@ const notifyCtrl = {
         try {
             const notify = await Notifies.findOneAndDelete({
                 id: req.params.id,
-                url: req.query.url
-            })
+                ...(req.query.url && { url: req.query.url })              //url: req.query.url
+            });
 
             return res.json({
                 msg: "Notification Deleted!"
@@ -50,18 +53,20 @@ const notifyCtrl = {
     },
     isReadNotify: async (req, res) => {
         try {
-            const notifies = await Notifies.findOneAndUpdate({_id: req.params.id}, {
-                isRead: true
-            })
+            const notifies = await Notifies.findOneAndUpdate(
+                {_id: req.params.id},
+                {isRead: true},
+                {new: true}
+            )
 
             return res.json({notifies});
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
     },
-    deleteAllNotifies: async (req, res) => {
+    deleteAllNotify: async (req, res) => {
         try {
-            const notifies = await Notifies.deleteMany({});
+            const notifies = await Notifies.deleteMany({  recipients: req.user._id });
 
             return res.json({notifies})
         } catch (err) {

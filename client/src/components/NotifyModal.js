@@ -4,7 +4,7 @@ import NoNotice from '../assets/notice.png';
 import { Link } from 'react-router-dom'
 import Avatar from './Avatar.js';
 import moment from 'moment'
-import { isReadNotify, NOTIFY_TYPES, deleteAllNotifies } from '../redux/actions/notifyAction.js'
+import { isReadNotify, NOTIFY_TYPES, deleteAllNotify } from '../redux/actions/notifyAction.js'
 import { useSocket } from '../socketContext.js';
 
 const NotifyModal = () => {
@@ -23,10 +23,10 @@ const NotifyModal = () => {
 
     const handleDeleteAll = () => {
         const newArr = notify?.data?.filter(item => item.isRead === false) || [];
-        if(newArr.length === 0) return dispatch(deleteAllNotifies(auth.token))
+        if(newArr.length === 0) return dispatch(deleteAllNotify(auth.token))
 
         if(window.confirm(`You have ${newArr.length} unread notices. Are you sure you want to delete all?`)){
-            return dispatch(deleteAllNotifies(auth.token))
+            return dispatch(deleteAllNotify(auth.token))
         }
     }
 
@@ -55,7 +55,7 @@ const NotifyModal = () => {
 
             {
                 notify?.data?.length === 0 &&
-                <img src={NoNotice} alt="NoNotice" className="w-100" />
+                <img src={NoNotice} alt="NoNotice" className="w-100 z-1" />
             }
 
             <div style={{maxHeight: 'calc(100vh - 200px)', overflow: 'auto'}}>

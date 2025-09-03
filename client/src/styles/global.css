@@ -105,7 +105,7 @@ red-300 #fca5a5
   @import url("./message.css");
 
   /* -------- Icons---------- */
-  @import url("./icons.css");
+  /* @import url("./icons.css"); */
 
   /* Create Post */
   @import url("./status_modal.css");

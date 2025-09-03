@@ -72,8 +72,8 @@ const postCtrl = {
     },
     updatePost: async (req, res) => {
         try {
-            const { content } = req.body;
-            const images = req.files || [];
+            const { content, images } = req.body;
+            // const images = req.files || []; // multer
 
             const post = await Posts.findOneAndUpdate({_id: req.params.id}, {
                 content,
@@ -168,7 +168,7 @@ const postCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    getPostsDicover: async (req, res) => {
+    getDiscoverPosts: async (req, res) => {
         try {
 
             const newArr = [...req.user.following, req.user._id]
@@ -176,7 +176,7 @@ const postCtrl = {
             const num  = req.query.num || 9
 
             const posts = await Posts.aggregate([
-                { $match: { user : { $nin: newArr } } },
+                { $match: { user : { $nin: newArr } } },  // “Give me posts where user is not in the logged-in user’s following list or the user itself
                 { $sample: { size: Number(num) } },
             ])
 

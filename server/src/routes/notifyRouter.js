@@ -11,6 +11,6 @@ router.get('/notifies', auth, notifyCtrl.getNotifies);
 
 router.patch('/isReadNotify/:id', auth, notifyCtrl.isReadNotify);
 
-router.delete('/deleteAllNotify', auth, notifyCtrl.deleteAllNotifies);
+router.delete('/deleteAllNotify', auth, notifyCtrl.deleteAllNotify);
 
 module.exports = router;

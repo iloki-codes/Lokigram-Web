@@ -1,12 +1,3 @@
-.reactions{
-    display: grid;
-    grid-template-columns: repeat(4, 50px);
-    text-align: center;
-    cursor: pointer;
-}
-.reactions span{
-    margin: 3px 0;
-}
 
 .message{
     width: 100%;
@@ -120,7 +111,6 @@
 .chat_input button{
     border: none;
     outline: none;
-    background: white;
 }
 
 .chat_input .file_upload{

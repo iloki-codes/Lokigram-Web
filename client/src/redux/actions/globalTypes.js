@@ -7,7 +7,8 @@ export const GLOBALTYPES = {
     MODAL: 'MODAL',
     CALL: 'CALL',
     ONLINE: 'ONLINE',
-    OFFLINE: 'OFFLINE'
+    OFFLINE: 'OFFLINE',
+    NOTIFY: 'NOTIFY'
 }
 
 export const EditData = (data, id, post) => {

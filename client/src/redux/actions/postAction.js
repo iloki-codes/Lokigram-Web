@@ -91,8 +91,13 @@ export const updatePost = ({content, images, auth, status}) => async (dispatch) 
     ) return;
 
     try {
-        dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
-        if(imgNewUrl?.length > 0) media = await imageUpload(imgNewUrl)
+
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {loading: true}
+        })
+
+        if(imgNewUrl?.length > 0) media = await imageUpload(imgNewUrl);
 
         const res = await patchDataAPI(`post/${status._id}`, {
             content, images: [...imgOldUrl, ...media]

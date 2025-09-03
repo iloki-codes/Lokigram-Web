@@ -274,9 +274,9 @@ const RightSide = () => {
                     multiple accept="image/*,video/*" onChange={handleChangeMedia} />
                 </div>
 
-                <button type="submit" className="material-icons"
+                <button type="submit" className="material-icons text-[#b76e79]"
                 disabled={(text || media.length > 0) ? false : true}>
-                    near_me
+                    send
                 </button>
             </form>
         </>
