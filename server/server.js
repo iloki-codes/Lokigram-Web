@@ -13,7 +13,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: [ "http://localhost:3000", "https://social-media-app-lokigram.onrender.com" ],
+    origin: [ "http://localhost:3000", "https://lokigram.netlify.app", "https://social-media-app-lokigram.onrender.com" ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
     credentials: true
 }));
