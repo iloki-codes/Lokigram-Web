@@ -4,12 +4,12 @@ const Weather = () => {
 
     const [weather, setWeather] = useState(null);
     const [error, setError] = useState("");
-    const weatherApi = process.env.REACT_APP_WEATHER_API || "";
+    const weatherApi = process.env.REACT_APP_WEATHER_API;
 
     useEffect(() => {
 
         const fetchWeather = async () => {
-            const fetchData = await fetch(`http://api.weatherapi.com/v1/current.json?key=${weatherApi}&q=auto:ip&aqi=no`);
+            const fetchData = await fetch(`https://api.weatherapi.com/v1/current.json?key=${weatherApi}&q=auto:ip&aqi=no`);
 
             const data = await fetchData.json();
             setWeather(data);
