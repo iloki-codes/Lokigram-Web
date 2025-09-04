@@ -13,16 +13,16 @@ function Burger() {
   };
 
   const navLinks = [
-        { name: "Github", href: "/" },
-        { name: "LinkedIn", href: "/" },
-        { name: "Medium", href: "/" },
-        { name: "Portfolio", href: "/" },
-        { name: "Contact", href: "/" },
+        { name: "Github", href: "https://github.com/iloki-codes/Lokigram-Web" },
+        { name: "LinkedIn", href: "https://www.linkedin.com/in/lokeshlokicodes" },
+        { name: "Medium", href: "https://medium.com/@loki_codes" },
+        { name: "Portfolio", href: "https://loki-codes.netlify.app" },
+        { name: "Contact", href: "lokesh.loki.codes@gmail.com" },
     ];
 
   return (
 
-    <div className="fixed top-5 right-10 p-2 z-50">
+    <div className="fixed top-5 right-10 p-2 z-50 burger">
 
     <div>
 

@@ -1,11 +1,3 @@
-// import express from 'express';
-// import { cors } from 'cors';
-// import cookieParser from 'cookie-parser';
-// import SocketServer from './SocketServer.js';
-// import { ExpressPeerServer } from 'peer';
-// import path from 'path';
-// import dotenv from 'dotenv';
-// import mongoose from 'mongoose';
 
 require('dotenv').config();
 const express = require('express');

@@ -10,6 +10,7 @@ const Storytab = () => {
     const dispatch = useDispatch()
 
     return (
+
         <div className="statuss flex flex-col gap-2 items-center">
             <Avatar src={auth.user.avatar} size="big-avatar" />
 
